@@ -1,0 +1,12 @@
+Security:
+  Better WP Security:
+    url: http://wordpress.org/plugins/better-wp-security/
+    repo: Test repo
+  Limit Login Attempts:
+    url: http://wordpress.org/plugins/limit-login-attempts/
+    repo: Test repo
+
+SEO:
+  WordPress SEO by Yoast:
+    url: http://wordpress.org/plugins/wordpress-seo/
+    repo: Test repo

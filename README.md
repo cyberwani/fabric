@@ -4,4 +4,4 @@ Fabric is a lightweight WordPress stack for creating better custom themes in les
 
 
 ## Attribution
-Built by [UpTrending] (http://uptrending.com)
+Built by [UpTrending](http://uptrending.com)
