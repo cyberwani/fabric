@@ -9,7 +9,7 @@
 
 include_once 'spyc.php';
 
-$packages = Spyc::YAMLLoad(locate_template('/extensions/fabric-install-packages/packages.yml'));
+$packages = Spyc::YAMLLoad('extensions/fabric-install-packages/packages.yml');
 
 while ($plugins = current($packages)) {
   echo '<h3>Package: ' . key($packages) . '</h3>';

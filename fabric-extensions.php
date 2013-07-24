@@ -6,9 +6,11 @@
   Purpose: Find and install all Fabric extensions
 
 */
-$extensions_dir = 'extensions/';
-$extensions_path = 'wp-content/themes/fabric/' . $extensions_dir;
 
+
+
+$extensions_dir = 'extensions/';
+$extensions_path = '' . $extensions_dir;
 
 // Find all Fabric extensions
 $extension_initializer_files = get_extensions_initalizer_files($extensions_path);
@@ -42,9 +44,9 @@ function get_extensions_initalizer_files() {
     if (file_exists($extension_initializer_file)) {
       $extension_initializer_files[] = str_replace($extensions_path, '', $extension_initializer_file);
     }
-  } 
+  }
    
-   return $extension_initializer_files; 
+  return $extension_initializer_files; 
 }
 
 /*
@@ -60,7 +62,7 @@ function install_extensions($extension_initializer_files) {
 
   foreach ($extension_initializer_files as $initalizer_file) {
     echo '<h1>' . $initalizer_file . '</h1>';
-    require_once locate_template($extensions_dir . $initalizer_file);
+    require_once($extensions_dir . $initalizer_file);
     echo '<hr />';
   }
 }
