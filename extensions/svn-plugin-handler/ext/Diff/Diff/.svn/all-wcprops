@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 37
+/svn/!svn/ver/123/trunk/ext/Diff/Diff
+END
+Mapped.php
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/!svn/ver/123/trunk/ext/Diff/Diff/Mapped.php
+END
+Renderer.php
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/!svn/ver/123/trunk/ext/Diff/Diff/Renderer.php
+END
+ThreeWay.php
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/!svn/ver/123/trunk/ext/Diff/Diff/ThreeWay.php
+END
