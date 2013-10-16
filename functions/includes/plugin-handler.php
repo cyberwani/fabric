@@ -1,6 +1,6 @@
 <?php
 
-function fabric_install_activate_plugins( $plugins = array() ) {
+function fabric_install_activate_plugins( $plugins = array(), $silent = true ) {
 
 	if ( ! current_user_can('install_plugins') )
 		wp_die( __( 'You do not have sufficient permissions to install plugins on this site.' ) );
@@ -10,7 +10,7 @@ function fabric_install_activate_plugins( $plugins = array() ) {
 
 	require_once ( ABSPATH . 'wp-admin/admin.php');
 	require_once ( ABSPATH . 'wp-admin/includes/class-wp-upgrader.php' );
-	require_once ( get_template_directory() . '/extensions/plugin-handler/class-fabric-upgrader.php' );
+	require_once ( FABRIC_THEME_DIR . '/functions/includes/class-fabric-upgrader.php' );
 	require_once ( ABSPATH . 'wp-admin/includes/plugin-install.php' );
 
 	foreach($plugins as $plugin) {
@@ -45,6 +45,3 @@ function fabric_install_activate_plugins( $plugins = array() ) {
 	}
 
 }
-
-//$array = array('hello-dolly', 'akismet');
-//fabric_install_activate_plugins( $array );

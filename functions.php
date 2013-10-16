@@ -1,12 +1,8 @@
 <?php
 
-//** Custom Functionality **//
+if ( !defined('FABRIC_THEME_DIR') ){
+	define('FABRIC_THEME_DIR', dirname(__FILE__));
+}
 
-//require_once '/models/news.php';
+require_once locate_template('/functions/activation.php');
 
-
-//** Fabric Initial Configuration **//
-
-//require_once locate_template('/fabric-extensions.php');
-
-?>
