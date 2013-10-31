@@ -10,7 +10,7 @@ function fabric_install_activate_plugins( $plugins = array(), $silent = true ) {
 
 	require_once ( ABSPATH . 'wp-admin/admin.php');
 	require_once ( ABSPATH . 'wp-admin/includes/class-wp-upgrader.php' );
-	require_once ( FABRIC_THEME_DIR . '/functions/includes/class-fabric-upgrader.php' );
+	require_once ( 'class-fabric-upgrader.php' );
 	require_once ( ABSPATH . 'wp-admin/includes/plugin-install.php' );
 
 	foreach($plugins as $plugin) {
