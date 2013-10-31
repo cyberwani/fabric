@@ -141,10 +141,15 @@ function fabric_theme_activation_options_render_page() {
                     </td>
                 </tr>
 
-                <tr valign="top"><th scope="row"><?php _e('Choose Packages', 'fabric'); ?></th>
+                <tr valign="top"><th scope="row"><?php _e('Configure Package', 'fabric'); ?></th>
                     <td>
-                        <fieldset><legend class="screen-reader-text"><span><?php _e('Choose Packages', 'fabric'); ?></span></legend>
+                        <fieldset><legend class="screen-reader-text"><span><?php _e('Configure Package', 'fabric'); ?></span></legend>
                             <table id="packages">
+                                <tr>
+                                    <td>
+                                        <label>Choose a package above to configure</label>
+                                    </td>
+                                </tr>
                             </table>
                         </fieldset>
                     </td>
