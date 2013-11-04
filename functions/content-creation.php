@@ -11,6 +11,13 @@ function fabric_content_menu() {
 function fabric_content_creation_page() {
 	$message = null;
 
+	//$_POST['fabric-action'] = "textarea-content-paste";
+	//$_POST['fabric-content-paste'] = '<ul><li>Portfolio</li><li>Contact</li><li>Agency<ul><li>Team<ul><li>Wordpress<ul><li>Backend<ul><li>Adrian</li><li>Matt</li><li>Chris S</li><li>Aaron</li><li>Kate</li></ul></li><li>Front End<ul><li>Chris C</li></ul></li></ul></li><li>Ruby<ul><li>Will</li><li>Nathan</li></ul></li><li>Management<ul><li>Andy</li><li>Gina</li><li>Dan</li><li>Taylor</li></ul></li></ul></li></ul></li></ul>';
+
+	//echo "<pre>".print_r($data,true)."</pre>";
+
+	//return;
+
 	// Handle POST
 	if(isset($_POST['fabric-action']) && $_POST['fabric-action'] == "textarea-content-paste"){
 		$htmlcontent = $_POST['fabric-content-paste'];
@@ -27,21 +34,63 @@ function fabric_content_creation_page() {
 			// Find root element
 			$root = $content->documentElement;
 
+			$collection = array();
+
+
 			// Loop through each UL in the document
 			foreach ($root->getElementsByTagName('body')->item(0)->childNodes AS $node)
 			{
 				// Handle lists
-				handle_ul($node);
+				handle_ul($node, $collection);
 			}
 
 			$message = "success";
+			//echo "<h1>Collection</h1>";
+			//echo "<pre>".print_r($collection,true)."</pre>";
+
+			// Save to the DB
+			update_option("fabric_content_map", json_encode($collection) );
 		}
 	}
 
-	include "includes/content-creation/main.php";
+	$existing_content_map = get_option("fabric_content_map");
+
+	if($existing_content_map){
+		wp_enqueue_style("content_map",get_template_directory_uri()."/functions/includes/assets/css/content_map.css");
+		include "includes/content-creation/map_editor.php";
+	} else {
+		include "includes/content-creation/main.php";
+	}
 }
 
-function handle_ul($ul,$parent_id = null){
+function handle_ul($ul,&$collection){
+	if($ul->nodeName == "ul"){
+		foreach($ul->childNodes as $li){
+			if($li->nodeName == "li"){
+				$subul = $li->getElementsByTagName("ul")->item(0);
+				if($subul){
+					$li->removeChild($subul);
+				}
+
+				//echo $li->nodeValue."\n";
+
+				$new_page = (object)array(
+					"name" => $li->nodeValue,
+					"type" => "page"
+				);
+
+				if($subul){
+					handle_ul($subul, $new_page->children);
+				}
+
+				$collection[] = $new_page;
+			}
+		}
+	}
+}
+
+
+function handle_ul1($ul,$parent_id = null){
 	if($ul->nodeName == "ul"){
 		foreach($ul->childNodes as $li){
 			if($li->nodeName == "li"){
@@ -66,4 +115,17 @@ function handle_ul($ul,$parent_id = null){
 			}
 		}
 	}
+}
+
+function output_map($content_map){
+	echo '<ul>';
+	foreach($content_map as $page){
+		echo '<li class="node type-'.$page->type.'">';
+			echo '<span class="node-title">'.$page->name."</span>";
+			if(isset($page->children)){
+				output_map($page->children);
+			}
+		echo "</li>";
+	}
+	echo "</ul>";
 }

@@ -1,0 +1,47 @@
+/* line 3, ../scss/content_map.scss */
+#content_map {
+  position: relative;
+  width: 100%;
+}
+/* line 7, ../scss/content_map.scss */
+#content_map #node_list {
+  width: 70%;
+}
+/* line 10, ../scss/content_map.scss */
+#content_map #node_list ul {
+  margin-left: 20px;
+}
+/* line 13, ../scss/content_map.scss */
+#content_map #node_list ul li {
+  border-left: 1px solid #eeeeee;
+  border-bottom: 1px solid #eeeeee;
+}
+/* line 17, ../scss/content_map.scss */
+#content_map #node_list ul li .node-title {
+  display: block;
+  border: 1px solid #eeeeee;
+  border-left: 0;
+  padding: 5px;
+}
+/* line 23, ../scss/content_map.scss */
+#content_map #node_list ul li .node-title:last-child {
+  border-bottom: 0;
+}
+/* line 27, ../scss/content_map.scss */
+#content_map #node_list ul li .node-title:hover {
+  background: #CCC;
+}
+/* line 32, ../scss/content_map.scss */
+#content_map #node_list ul li ul {
+  margin-top: 5px;
+}
+/* line 39, ../scss/content_map.scss */
+#content_map #node_inspector {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 26%;
+  height: 200px;
+  background: #EEE;
+  padding: 2%;
+}
