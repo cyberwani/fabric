@@ -1,0 +1,10 @@
+eCommerce:
+    description: A selection of plugins for ecommerce sites
+    plugins:
+        Store Locator Plus:
+            url: http://wordpress.org/plugins/store-locator-le/
+            description: A full featured location management system. Add a location finder or directory to your site in minutes. Extensive premium add-on library available!
+
+        WooCommerce Prices:
+            url: http://wordpress.org/plugins/woocommerce-prices/
+            description: This plugin allows for custom editing of product prices in WooCommerce.

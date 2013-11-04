@@ -1,0 +1,17 @@
+Security:
+    description: A selection of plugins designed to protect your blog
+    plugins:
+        Better WP Security:
+            url: http://wordpress.org/plugins/better-wp-security/
+            description: This plugin gives you better WP security dude!
+
+        Limit Login Attempts:
+            url: http://wordpress.org/plugins/limit-login-attempts/
+            description: Limit the number of failed login attempts that can be done consecutively
+
+SEO:
+    description: Increase your blogs SEO capabilities by implementing plugins that utilize SEO best practices
+    plugins:
+        WordPress SEO by Yoast:
+            url: http://wordpress.org/plugins/wordpress-seo/
+            description: The famouse Yoast SEO plugin
