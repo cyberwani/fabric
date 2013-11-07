@@ -1,0 +1,48 @@
+$outline-color: #eee;
+
+#content_map{
+	position: relative;
+	width: 100%;
+
+	#node_list{
+		width: 70%;
+
+		ul{
+			margin-left: 20px;
+
+			li{
+				border-left: 1px solid $outline-color;
+				border-bottom: 1px solid $outline-color;
+
+				.node-title{
+					display: block;
+					border: 1px solid $outline-color;
+					border-left: 0;
+					padding: 5px;
+
+					&:last-child{
+						border-bottom: 0;
+					}
+
+					&:hover{
+						background: #CCC;
+					}
+				}
+
+				ul{
+					margin-top: 5px;
+				}
+			}
+		}
+	}
+
+	#node_inspector{
+		position: absolute;
+		top: 0;
+		right: 0;
+		width: 26%;
+		height: 200px;
+		background: #EEE;
+		padding: 2%;
+	}
+}
