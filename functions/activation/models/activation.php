@@ -11,7 +11,7 @@ if (is_admin() && isset($_GET['activated']) && 'themes.php' == $GLOBALS['pagenow
 function fabric_get_packages() {
 	$packages = array();
 
-	if ($handle = opendir(FABRIC_THEME_DIR . 'functions/packages/')) {
+	if ($handle = opendir(FABRIC_ACTIVATION_DIR . 'packages/')) {
 	    while (false !== ($entry = readdir($handle))) {
 			$ext = pathinfo($entry, PATHINFO_EXTENSION);
 			if($ext == 'yml') {
@@ -30,8 +30,8 @@ function fabric_read_package_ajax() {
         //exit;
     }
     $package = $_POST['fabric_package'];
-	require_once FABRIC_INCLUDES_DIR . 'plugin_handler/spyc.php';
-	$packages = Spyc::YAMLLoad(FABRIC_THEME_DIR . 'functions/packages/' . $package);
+	require_once FABRIC_ACTIVATION_DIR . 'includes/plugin_handler/spyc.php';
+	$packages = Spyc::YAMLLoad(FABRIC_ACTIVATION_DIR . 'packages/' . $package);
 
 	echo json_encode($packages);
     exit;
@@ -39,8 +39,8 @@ function fabric_read_package_ajax() {
 add_action('wp_ajax_fabric_read_package_ajax', 'fabric_read_package_ajax');
 
 function fabric_read_package($package) {
-	require_once FABRIC_INCLUDES_DIR . 'plugin_handler/spyc.php';
-	$packages = Spyc::YAMLLoad(FABRIC_THEME_DIR . 'functions/packages/' . $package);
+	require_once FABRIC_ACTIVATION_DIR . 'includes/plugin_handler/spyc.php';
+	$packages = Spyc::YAMLLoad(FABRIC_ACTIVATION_DIR . 'packages/' . $package);
 
 	return $packages;
 }
@@ -118,7 +118,7 @@ function fabric_theme_activation_action() {
     }
 
     if( !empty( $plugins_to_install ) ) {
-        require_once FABRIC_INCLUDES_DIR . 'plugin_handler/plugin-handler.php';
+        require_once FABRIC_ACTIVATION_DIR . 'includes/plugin_handler/plugin-handler.php';
         fabric_install_activate_plugins($plugins_to_install);
     }
 

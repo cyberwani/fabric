@@ -3,7 +3,11 @@
  * Theme activation
  */
 
-require_once FABRIC_THEME_DIR . 'functions/models/activation.php';
+if ( !defined('FABRIC_ACTIVATION_DIR') ){
+    define('FABRIC_ACTIVATION_DIR', dirname(__FILE__) . '/activation/');
+}
+
+require_once FABRIC_ACTIVATION_DIR . 'models/activation.php';
 
 function fabric_theme_activation_options_render_page() {
 
