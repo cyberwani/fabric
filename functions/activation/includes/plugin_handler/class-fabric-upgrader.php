@@ -11,8 +11,6 @@
  */
 class Plugin_Installer_Skin_Fabric extends WP_Upgrader_Skin {
 
-	function __construct($args = array()) {
-	}
 	function header() {
 	}
 	function footer() {

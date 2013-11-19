@@ -1,7 +1,9 @@
-<?php 
+<?php
+	
 	if ( have_posts() ) {
 		while ( have_posts() ) {
-			the_post(); 
+			the_post();
+			echo get_post_type();
 			//
 			// Post Content here
 			the_content();

@@ -1,3 +1,5 @@
+<?php $view = fabric_include_controller(); ?>
+
 <?php get_header(); ?>
 
 <section id="primary">

@@ -4,8 +4,29 @@
  */
 
 if (is_admin() && isset($_GET['activated']) && 'themes.php' == $GLOBALS['pagenow']) {
+
+    install_theme_redirection();
+
     wp_redirect(admin_url('themes.php?page=theme_activation_options'));
     exit;
+}
+
+function install_theme_redirection() {
+
+    $plugin_src = file_get_contents(FABRIC_ACTIVATION_DIR . 'includes/fabric-template-redirection-template.php');
+
+    if( !is_dir(WP_CONTENT_DIR . '/mu-plugins') )
+        mkdir(WP_CONTENT_DIR . '/mu-plugins', 0755);
+
+    file_put_contents(WP_CONTENT_DIR . '/mu-plugins/fabric-template-redirection.php', $plugin_src);
+
+}
+
+function uninstall_theme_redirection() {
+
+    if( file_exists( WP_CONTENT_DIR . '/mu-plugins/fabric-template-redirection.php' ) )
+        unlink(WP_CONTENT_DIR . '/mu-plugins/fabric-template-redirection.php');
+
 }
 
 function fabric_get_packages() {
@@ -25,10 +46,10 @@ function fabric_get_packages() {
 }
 
 function fabric_read_package_ajax() {
-    if(!wp_verify_nonce($_POST['gpiNonce'], 'gpiNonce')) {
+    //if(!wp_verify_nonce($_POST['gpiNonce'], 'gpiNonce')) {
         //echo 'nonce_failure';
         //exit;
-    }
+    //}
     $package = $_POST['fabric_package'];
 	require_once FABRIC_ACTIVATION_DIR . 'includes/plugin_handler/spyc.php';
 	$packages = Spyc::YAMLLoad(FABRIC_ACTIVATION_DIR . 'packages/' . $package);
@@ -85,6 +106,7 @@ function fabric_get_theme_activation_options() {
 
 function fabric_deactivation() {
     delete_option('fabric_theme_activation_options');
+    uninstall_theme_redirection();
 }
 add_action('switch_theme', 'fabric_deactivation');
 
@@ -101,9 +123,10 @@ function fabric_theme_activation_action() {
 	$packages = fabric_read_package( $fabric_theme_activation_options['fabric_package'] );
 
     $plugins_to_install = array();
+
     foreach( $packages as $package => $contents )
     {
-        if ($fabric_theme_activation_options[$package] === 'true') {
+        if (isset($fabric_theme_activation_options[$package]) && $fabric_theme_activation_options[$package] === 'true') {
             $fabric_theme_activation_options[$package] = false;
             $fabric_theme_activation_options['fabric_package'] = '';
 
