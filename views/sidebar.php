@@ -1,1 +1,3 @@
-SIDEBAR
+<aside>
+	SIDEBAR
+</aside>

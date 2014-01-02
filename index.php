@@ -1,3 +1,3 @@
 <?php
-// Silence is golden.
+// This file is here to keep WordPress happy.
 ?>

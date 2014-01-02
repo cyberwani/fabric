@@ -12,10 +12,18 @@ Version: 1.0
 Author URI: http://UpTrending.com
 */
 
+if ( !defined('FABRIC_TEMPLATE_REDIRECTION_ACTIVE') ){
+	define('FABRIC_TEMPLATE_REDIRECTION_ACTIVE', true);
+}
+
 // Append our views folder to the template directory path
 function fabric_redirect_template_directory($template_dir, $template, $theme_root) {
-    $template_dir .= '/views';
-    return $template_dir;
+    $new_template_dir = $template_dir . '/views';
+
+    if(!file_exists($new_template_dir . '/index.php'))
+    	return $template_dir;
+
+    return $new_template_dir;
 }
 add_filter( 'template_directory', 'fabric_redirect_template_directory', 10, 3 );
 
@@ -24,10 +32,3 @@ function fabric_validate_theme() {
 	return false;
 }
 add_filter( 'validate_current_theme', 'fabric_validate_theme' );
-
-// If fabric is no longer the active theme, auto delete this file to avoid breaking other themes
-function check_theme_fabric() {
-	if(!defined('FABRIC_ACTIVE'))
-		unlink( __FILE__ );
-}
-add_action( 'init', 'check_theme_fabric' );

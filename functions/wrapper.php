@@ -1,9 +1,5 @@
 <?php
 
-//file_put_contents($_SERVER['DOCUMENT_ROOT'] . '/log.txt', print_r('', true));
-//file_put_contents($_SERVER['DOCUMENT_ROOT'] . '/log1.txt', print_r('', true));
-
-
 function fabric_template_path() {
 	return Fabric_Wrapping::$main_template;
 }
