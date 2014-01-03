@@ -1,0 +1,20 @@
+select#choose_a_package {
+    width: 100%;
+}
+i {
+    cursor: pointer;
+}
+table#packages {
+    border-collapse: collapse;
+}
+table#packages tr.sub {
+    display: none;
+    background: #ddd;
+}
+table#packages tr.sub:nth-child(even) {
+    background: #eee;
+}
+table#packages tr td {
+    border-left: 1px solid #ccc;
+    padding-left: 5px;
+}

@@ -9,7 +9,7 @@ Security:
             url: http://wordpress.org/plugins/limit-login-attempts/
             description: Limit the number of failed login attempts that can be done consecutively
 
-SEO:
+SEO Stuff:
     description: Increase your blogs SEO capabilities by implementing plugins that utilize SEO best practices
     plugins:
         WordPress SEO by Yoast:
