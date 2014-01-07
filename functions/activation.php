@@ -11,7 +11,7 @@ if (is_admin() && isset($_GET['activated']) && 'themes.php' == $GLOBALS['pagenow
 
     fabric_activation();
 
-    wp_redirect(admin_url('customize.php'));
+    wp_redirect( admin_url( 'customize.php' ) );
     exit;
 }
 
@@ -25,7 +25,7 @@ function fabric_activation() {
     $write_result = file_put_contents(WP_CONTENT_DIR . '/mu-plugins/fabric-template-redirection.php', $plugin_src);
 
     if( false == $write_result )
-        update_option( 'fabric_template_redirection_installed', 0 );
+        delete_option( 'fabric_template_redirection_installed' );
 
 }
 
@@ -35,6 +35,7 @@ function fabric_deactivation() {
     if( file_exists( WP_CONTENT_DIR . '/mu-plugins/fabric-template-redirection.php' ) )
         unlink(WP_CONTENT_DIR . '/mu-plugins/fabric-template-redirection.php');
 
+    delete_option( 'fabric_template_redirection_installed', 0 );
 }
 add_action('switch_theme', 'fabric_deactivation');
 
@@ -200,6 +201,42 @@ function fabric_after_save_customizer() {
     );
 
     tgmpa( $plugins_to_install, $config );
-
 }
+
+function fabric_install_packages() {
+
+    $post_values = json_decode( wp_unslash( $_POST['customized'] ) );
+    $plugins_to_install = explode(',', $post_values->{'fabric-packages'});
+    $plugins_to_install = array_filter( $plugins_to_install );
+
+    if( empty( $plugins_to_install ) )
+        return;
+
+    require_once ABSPATH . 'wp-admin/includes/plugin-install.php'; // Need for plugins_api
+
+    $plugin_sources = array();
+    $x = 0;
+
+    foreach( $plugins_to_install as $plugin )
+    {
+        $result = plugins_api( 'plugin_information', array( 'slug' => $plugin, 'fields' => array( 'sections' => false ) ) );
+
+        if( !$result || !isset( $result->download_link ) )
+            continue;
+
+        $plugin_sources[$x] = $result->download_link;
+        $x++;
+    }
+
+    if( empty( $plugin_sources ) )
+        return;
+
+    require_once FABRIC_ACTIVATION_DIR . '/includes/class-tgm-plugin-activation.php';
+
+    $TGM_Bulk_Installer = new TGM_Bulk_Installer;
+    $TGM_Bulk_Installer->is_automatic = true;
+
+    $TGM_Bulk_Installer->bulk_install( $plugin_sources, true );
+}
+add_action( 'customize_save_after', 'fabric_install_packages' );
 

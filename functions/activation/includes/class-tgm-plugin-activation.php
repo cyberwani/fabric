@@ -1580,6 +1580,20 @@ if ( ! class_exists( 'TGMPA_List_Table' ) ) {
 	}
 }
 
+
+/**
+ * Are we on the theme customizer page?
+ */
+function fabric_is_customizer() {
+
+	global $wp_customize;
+
+	if( isset( $wp_customize ) )
+		return true;
+
+	return false;
+}
+
 /**
  * The WP_Upgrader file isn't always available. If it isn't available,
  * we load it here.
@@ -1590,7 +1604,10 @@ if ( ! class_exists( 'TGMPA_List_Table' ) ) {
  *
  * @since 2.2.0
  */
-if ( ! class_exists( 'WP_Upgrader' ) && ( isset( $_GET[sanitize_key( 'page' )] ) && TGM_Plugin_Activation::$instance->menu = $_GET[sanitize_key( 'page' )] ) ) {
+if (
+	( ! class_exists( 'WP_Upgrader' ) && ( isset( $_GET[sanitize_key( 'page' )] ) && TGM_Plugin_Activation::$instance->menu = $_GET[sanitize_key( 'page' )] ) )
+	|| ( ! class_exists( 'WP_Upgrader' ) && fabric_is_customizer() )
+	) {
 	require_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
 
 	if ( ! class_exists( 'TGM_Bulk_Installer' ) ) {
@@ -1634,11 +1651,16 @@ if ( ! class_exists( 'WP_Upgrader' ) && ( isset( $_GET[sanitize_key( 'page' )] )
 	 		 * @param array $packages The plugin sources needed for installation
 	 		 * @return string|boolean Install confirmation messages on success, false on failure
 	 		 */
-			public function bulk_install( $packages ) {
+			public function bulk_install( $packages, $direct = false ) {
 
 				/** Pass installer skin object and set bulk property to true */
 				$this->init();
 				$this->bulk = true;
+
+				/** If accessing this directly from theme customizer, auto activate */
+				if( $direct ) {
+					TGM_Plugin_Activation::$instance->is_automatic = true;
+				}
 
 				/** Set install strings and automatic activation strings (if config option is set to true) */
 				$this->install_strings();
@@ -1656,7 +1678,8 @@ if ( ! class_exists( 'WP_Upgrader' ) && ( isset( $_GET[sanitize_key( 'page' )] )
 				}
 
 				/** Set the bulk header and prepare results array */
-				$this->skin->bulk_header();
+				if( !$direct )
+					$this->skin->bulk_header();
 				$results = array();
 
 				/** Get the total number of packages being processed and iterate as each package is successfully installed */
@@ -1688,7 +1711,8 @@ if ( ! class_exists( 'WP_Upgrader' ) && ( isset( $_GET[sanitize_key( 'page' )] )
 				}
 
 				/** Pass footer skin strings */
-				$this->skin->bulk_footer();
+				if( !$direct )
+					$this->skin->bulk_footer();
 				$this->skin->footer();
 
 				/** Return our results */

@@ -8,7 +8,7 @@ table#packages {
     border-collapse: collapse;
 }
 table#packages tr.sub {
-    display: none;
+    display: table-row;
     background: #ddd;
 }
 table#packages tr.sub:nth-child(even) {

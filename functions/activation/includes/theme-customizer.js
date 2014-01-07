@@ -134,7 +134,7 @@ var packages = '';
 			var package_slug = convertToSlug(package_name);
 			html += '<tr>';
 				html += '<td class="first">';
-					html += '<i class="dashicons dashicons-arrow-right cstmzr-package closed" data-package="' + package_slug + '" id="' + package_slug + '"></i>';
+					html += '<i class="dashicons dashicons-arrow-down cstmzr-package" data-package="' + package_slug + '" id="' + package_slug + '"></i>';
 				html += '</td>';
 				html += '<td>';
 					html += '<label class="cstmzr-package-label" for="' + package_slug + '"> ' + package_name + '</label>';
