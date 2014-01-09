@@ -33,5 +33,4 @@ class Fabric_Wrapping {
 		return locate_template( $templates );
 	}
 }
- 
 add_filter( 'template_include', array( 'Fabric_Wrapping', 'wrap' ), 99 );

@@ -80,6 +80,7 @@ function fabric_format_slug( $slug = false ) {
 	return $formatted_slug;
 }
 
+// Register PHP autoloader to include classes for us when called
 function fabric_autoloader($className)
 {
     $classNameParts = explode('\\', trim($className, '\\'));
@@ -89,6 +90,6 @@ function fabric_autoloader($className)
 
     $fileName = array_pop($classNameParts);
 
-    require_once FABRIC_CONTROLLERS . $fileName . '.php';
+    include_once FABRIC_CONTROLLERS . $fileName . '.php';
 }
 spl_autoload_register('fabric_autoloader');
