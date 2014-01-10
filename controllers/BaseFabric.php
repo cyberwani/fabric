@@ -19,58 +19,53 @@ class BaseFabric
 
 	}
 
+	public function page_type(  )
+	{
+		if( is_category() )
+			return 'category';
+
+		if( is_archive() )
+			return 'archive';
+
+		if( is_404() )
+			return '404';
+
+		$post_type = get_post_type();
+		
+		if( !empty( $post_type ) )
+			return $post_type;
+	}
+
 	public function the_head( $name = null )
 	{
-		do_action( 'get_head', $name );
-
-		$templates = array();
-		$name = (string) $name;
-		if ( '' !== $name )
-			$templates[] = "head-{$name}.php";
-
-		$templates[] = 'head.php';
-
-		return locate_template($templates, false);
+		return $this->get_template( 'head', $name );
 	}
 
 	public function the_header( $name = null )
 	{
-		do_action( 'get_header', $name );
-
-		$templates = array();
-		$name = (string) $name;
-		if ( '' !== $name )
-			$templates[] = "header-{$name}.php";
-
-		$templates[] = 'header.php';
-
-		return locate_template($templates, false);
+		return $this->get_template( 'header', $name );
 	}
 
 	public function the_sidebar( $name = null )
 	{
-		do_action( 'get_sidebar', $name );
-
-		$templates = array();
-		$name = (string) $name;
-		if ( '' !== $name )
-			$templates[] = "sidebar-{$name}.php";
-
-		$templates[] = 'sidebar.php';
-
-		return locate_template($templates, false);
+		return $this->get_template( 'sidebar', $name );
 	}
 
 	public function the_footer( $name = null )
 	{
-		do_action( 'get_footer', $name );
+		return $this->get_template( 'footer', $name );
+	}
+
+	private function get_template( $type, $name )
+	{
+		do_action( "get_{$type}", $name );
 
 		$templates = array();
 		$name = (string) $name;
 		if ( '' !== $name )
-			$templates[] = "footer-{$name}.php";
+			$templates[] = "{$type}-{$name}.php";
 
-		$templates[] = 'footer.php';
+		$templates[] = "{$type}.php";
 
 		return locate_template($templates, false);
 	}

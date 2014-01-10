@@ -10,23 +10,23 @@ function fabric_controller() {
 
 	$controllers = array();
 	$controllers['post_slug'] = array(
-		'file' 		=> $post_type . 'Fabric' . $post_slug . '.php',
+		'file' 		=> $post_type . 'Fabric' . $post_slug,
 		'namespace' => '\Fabric\Controllers\\' . $post_type . 'Fabric' . $post_slug
 	);
 	$controllers['post_type'] = array(
-		'file' 		=> $post_type . 'Fabric.php',
+		'file' 		=> $post_type . 'Fabric',
 		'namespace' => '\Fabric\Controllers\\' . $post_type . 'Fabric'
 	);
 	$controllers['cat_slug']  = array(
-		'file' 		=> 'CategoryFabric' . $category . '.php',
+		'file' 		=> 'CategoryFabric' . $category,
 		'namespace' => '\Fabric\Controllers\CategoryFabric' . $category
 	);
 	$controllers['category']  = array(
-		'file' 		=> 'CategoryFabric.php',
+		'file' 		=> 'CategoryFabric',
 		'namespace' => '\Fabric\Controllers\CategoryFabric'
 	);
 	$controllers['base'] 	  = array(
-		'file' 		=> 'BaseFabric.php',
+		'file' 		=> 'BaseFabric',
 		'namespace' => '\Fabric\Controllers\BaseFabric'
 	);
 
@@ -34,8 +34,13 @@ function fabric_controller() {
 
 	$located_controller = fabric_locate_controller( $controllers );
 
-	if( '' != $located_controller )
-		return new $located_controller;
+	if( isset( $located_controller['namespace'] ) ) {
+		
+		if ( !defined('FABRIC_CONTROLLER') ){
+			define( 'FABRIC_CONTROLLER', $located_controller['file'] );
+		}
+		return new $located_controller['namespace'];
+	}
 }
 
 function fabric_locate_controller( $controller_names ) {
@@ -49,8 +54,8 @@ function fabric_locate_controller( $controller_names ) {
 			continue;
 		if ( !is_category() && isset( $category_controller_types[ $controller_type ] ) )
 			continue;
-		if ( file_exists(FABRIC_CONTROLLERS . $controller_name['file'])) {
-			$located = $controller_name['namespace'];
+		if ( file_exists(FABRIC_CONTROLLERS . $controller_name['file'] . '.php')) {
+			$located = $controller_name;
 			break;
 		}
 	}
