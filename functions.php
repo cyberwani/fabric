@@ -9,9 +9,12 @@ if ( !defined('FABRIC_CONTROLLERS') ){
 if ( !defined('FABRIC_VIEWS') ){
 	define('FABRIC_VIEWS', dirname(__FILE__) . '/views/');
 }
+if ( !defined('FABRIC_FUNCTIONS') ){
+	define('FABRIC_FUNCTIONS', dirname(__FILE__) . '/functions/');
+}
 
 // Auto-Include any php files from the root of our /functions/ directory
-if ($functions_handle = opendir(FABRIC_THEME_DIR . 'functions/')) {
+if ( is_dir( FABRIC_FUNCTIONS ) && $functions_handle = opendir( FABRIC_FUNCTIONS ) ) {
 
     while (false !== ($entry = readdir($functions_handle))) {
 		$ext = pathinfo($entry, PATHINFO_EXTENSION);
@@ -24,5 +27,7 @@ if ($functions_handle = opendir(FABRIC_THEME_DIR . 'functions/')) {
 
 /*
  *	WAIT! Your custom code doesn't belong here!
- *	Custom functionality should go into the /functions/ folder. For small changes add your code to /functions/custom.php. If your code is more complicated, create a new file for it in the /functions/ directory, or consider creating a plugin. Don't forget to ask yourself if your code would be better suited to go into a controller as well.
+ *	Custom functionality should go into the /functions/ folder. For small changes add your code to /functions/custom.php. 
+ *  If your code is more complicated, create a new file for it in the /functions/ directory, or consider creating a plugin.
+ *  Don't forget to ask yourself if your code would be better suited to go into a controller as well.
  */
