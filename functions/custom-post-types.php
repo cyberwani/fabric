@@ -5,7 +5,7 @@ if ( !defined('FABRIC_CPT_DIR') ){
 }
 
 if( !is_dir( FABRIC_CPT_DIR ) && is_writable( dirname(__FILE__) ) ) {
-	mkdir( FABRIC_CPT_DIR, 0644 );
+	mkdir( FABRIC_CPT_DIR, 0755 );
 }
 
 // Include all Custom Post Types

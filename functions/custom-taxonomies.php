@@ -5,7 +5,7 @@ if ( !defined('FABRIC_TAX_DIR') ){
 }
 
 if( !is_dir( FABRIC_TAX_DIR ) && is_writable( dirname(__FILE__) ) ) {
-	mkdir( FABRIC_TAX_DIR, 0644 );
+	mkdir( FABRIC_TAX_DIR, 0755 );
 }
 
 // Include all Custom Taxonomies

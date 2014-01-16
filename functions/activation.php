@@ -122,27 +122,20 @@ function fabric_after_save_customizer() {
     // Create and Set Navigation Menu
     if( $customizer_options->{'fabric-nav-menu'} ) {
         
-        file_put_contents($_SERVER['DOCUMENT_ROOT'] . '/log.txt', print_r('im in it', true));
-
         $fabric_nav_theme_mod = false;
         $primary_nav = wp_get_nav_menu_object( 'Primary Navigation' );
-
-        file_put_contents($_SERVER['DOCUMENT_ROOT'] . '/log1.txt', print_r($primary_nav, true));
 
         if (!$primary_nav) {
             $primary_nav_id = wp_create_nav_menu('Primary Navigation', array('slug' => 'primary_navigation'));
             $fabric_nav_theme_mod['primary_navigation'] = $primary_nav_id;
-            file_put_contents($_SERVER['DOCUMENT_ROOT'] . '/log2.txt', print_r($primary_nav_id, true));
-            file_put_contents($_SERVER['DOCUMENT_ROOT'] . '/log3.txt', print_r($fabric_nav_theme_mod, true));
         } else {
             $fabric_nav_theme_mod['primary_navigation'] = $primary_nav->term_id;
         }
 
-        file_put_contents($_SERVER['DOCUMENT_ROOT'] . '/log3.txt', print_r($fabric_nav_theme_mod, true));
-
         if ($fabric_nav_theme_mod) {
             set_theme_mod('nav_menu_locations', $fabric_nav_theme_mod);
         }
+        update_option( 'fabric-nav-menu', false );
     }
 }
 add_action( 'customize_save_after', 'fabric_after_save_customizer' );
