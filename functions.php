@@ -25,9 +25,11 @@ if ( is_dir( FABRIC_FUNCTIONS ) && $functions_handle = opendir( FABRIC_FUNCTIONS
     closedir($functions_handle);
 }
 
+// Trigger our fabric_loaded actions
+do_action( 'fabric_loaded' );
+
+
 /*
  *	WAIT! Your custom code doesn't belong here!
- *	Custom functionality should go into the /functions/ folder. For small changes add your code to /functions/custom.php. 
- *  If your code is more complicated, create a new file for it in the /functions/ directory, or consider creating a plugin.
- *  Don't forget to ask yourself if your code would be better suited to go into a controller as well.
+ *	Custom functionality should go into one of your controllers
  */

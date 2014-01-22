@@ -16,7 +16,7 @@ class BaseFabric
 
 	public function __construct()
 	{
-
+		
 	}
 
 	public function page_type(  )

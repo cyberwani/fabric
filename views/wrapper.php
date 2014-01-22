@@ -1,5 +1,3 @@
-<?php $view = fabric_controller(); ?>
-
 <?php include $view->the_head(); ?>
 
 <body <?php body_class(); ?>>
