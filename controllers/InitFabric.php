@@ -20,7 +20,7 @@ class InitFabric
 
 	public function __construct()
 	{
-		add_action( 'init', array( new BaseFabric, 'my_test' ) );
+		//add_action( 'init', array( new BaseFabric, 'my_test' ) );
 	}
 
 }
