@@ -6,23 +6,21 @@ function fabric_init() {
 }
 add_action( 'fabric_loaded', 'fabric_init' );
 
-function fabric_initiate_controller( $wp_obj ) {
+function fabric_initiate_controller() {
 
 	global $view;
 	
-	$view = fabric_controller( $wp_obj );
+	$view = fabric_controller();
 }
-add_action( 'parse_query', 'fabric_initiate_controller' );
+add_action( 'wp', 'fabric_initiate_controller' );
 
 // Calculate and include the right controller
-function fabric_controller( $wp_obj ) {
-
-	$post_type    = isset( $wp_obj->query['post_type'] )	? fabric_format_slug( $wp_obj->query['post_type'] ) 	: false;
-	$page_slug 	  = isset( $wp_obj->query['pagename'] ) 	? fabric_format_slug( $wp_obj->query['pagename'] ) 	  	: false;
-	$post_slug 	  = isset( $wp_obj->query['name'] ) 		? fabric_format_slug( $wp_obj->query['name'] ) 		  	: false;
-	$category	  = ( $wp_obj->is_category ) 				? fabric_format_slug( $wp_obj->query['category_name'] ) : false;
-
-	if( !$post_slug && $page_slug) $post_slug = $page_slug;
+function fabric_controller() {
+	
+	$post_type    	= fabric_format_slug( get_post_type() );
+	$post_slug 	  	= fabric_format_slug();
+	$category_info 	= ( is_category() ) ? get_category( get_query_var( 'cat' ) ) : false;
+	$category 		= ( !empty( $category_info ) ) ? fabric_format_slug( $category_info->slug ) : false;
 
 	$controllers = array();
 	if( $post_type && $post_slug ) {

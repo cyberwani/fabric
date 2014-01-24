@@ -14,51 +14,54 @@ namespace Fabric\Controllers;
 class BaseFabric
 {
 
+	public $show_sidebar = true;
+
+	public $page_type;
+
+	public $google_analytics_id = false;
+
+
 	public function __construct()
 	{
-		
+		$this->page_type = $this->page_type();
+
+		$this->show_sidebar = $this->show_sidebar();
+
+		$this->google_analytics_id = 'ua-123';
 	}
 
-	public function page_type(  )
+	public function get_head( $name = null )
 	{
-		if( is_category() )
-			return 'category';
-
-		if( is_archive() )
-			return 'archive';
-
-		if( is_404() )
-			return '404';
-
-		$post_type = get_post_type();
-		
-		if( !empty( $post_type ) )
-			return $post_type;
+		return $this->get_template( 'head', $name, $this );
 	}
 
-	public function the_head( $name = null )
+	public function get_header( $name = null )
 	{
-		return $this->get_template( 'head', $name );
+		return $this->get_template( 'header', $name, $this );
 	}
 
-	public function the_header( $name = null )
+	public function get_sidebar( $name = null )
 	{
-		return $this->get_template( 'header', $name );
+		return $this->get_template( 'sidebar', $name, $this );
 	}
 
-	public function the_sidebar( $name = null )
+	public function get_footer( $name = null )
 	{
-		return $this->get_template( 'sidebar', $name );
+		return $this->get_template( 'footer', $name, $this );
 	}
 
-	public function the_footer( $name = null )
+	public function get_template_part( $slug, $name = null )
 	{
-		return $this->get_template( 'footer', $name );
+		return $this->get_template( $slug, $name, $this, true );
 	}
 
-	private function get_template( $type, $name )
+	private function get_template( $type, $name, &$view, $template_part = false )
 	{
-		do_action( "get_{$type}", $name );
+		if( $template_part ) {
+			do_action( "get_template_part_{$type}", $type, $name );
+		} else {
+			do_action( "get_{$type}", $name );
+		}
 
 		$templates = array();
 		$name = (string) $name;
@@ -67,7 +70,7 @@ class BaseFabric
 
 		$templates[] = "{$type}.php";
 
-		return locate_template($templates, false);
+		include locate_template($templates, false);
 	}
 
 	public function loop( $post_type, $additional_args = array() )
@@ -84,4 +87,62 @@ class BaseFabric
 			return array();
 		}
 	}
+
+	public function google_analytics_tracking()
+	{
+		if( !$this->google_analytics_id )
+			return;
+
+		?>
+		<script type="text/javascript">
+
+		  var _gaq = _gaq || [];
+		  _gaq.push(['_setAccount', '<?php echo $this->google_analytics_id; ?>']);
+		  _gaq.push(['_trackPageview']);
+
+		  (function() {
+		    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		  })();
+
+		</script>
+		<?php
+	}
+
+	private function sidebar_blacklist()
+	{
+		return array(
+			is_page('ham')
+		);
+	}
+
+	private function show_sidebar()
+	{
+		if( !$this->show_sidebar )
+			return false;
+
+		if( in_array( true, $this->sidebar_blacklist() ) )
+			return false;
+
+		return true;
+	}
+
+	private function page_type()
+	{
+		if( is_category() )
+			return 'category';
+
+		if( is_archive() )
+			return 'archive';
+
+		if( is_404() )
+			return '404';
+
+		$post_type = get_post_type();
+		
+		if( !empty( $post_type ) )
+			return $post_type;
+	}
+
 }

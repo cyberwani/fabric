@@ -1,8 +1,8 @@
-<?php include $view->the_head(); ?>
+<?php $view->get_template_part('head'); ?>
 
 <body <?php body_class(); ?>>
 
-	<?php include $view->the_header(); ?>
+	<?php $view->get_header(); ?>
 
 	<!--[if lt IE 8]>
 		<div class="alert alert-warning"><?php _e('You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.', 'fabric'); ?></div>
@@ -10,9 +10,11 @@
 
 	<?php include fabric_template_path(); ?>
 
-	<?php include $view->the_sidebar(); ?>
+	<?php if( $view->show_sidebar ) {
+		$view->get_sidebar();
+	} ?>
 
-	<?php include $view->the_footer(); ?>
+	<?php $view->get_footer(); ?>
 
 </body>
 </html>

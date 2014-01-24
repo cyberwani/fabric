@@ -9,17 +9,17 @@ if ( !defined('FABRIC_CONTROLLERS') ){
 if ( !defined('FABRIC_VIEWS') ){
 	define('FABRIC_VIEWS', dirname(__FILE__) . '/views/');
 }
-if ( !defined('FABRIC_FUNCTIONS') ){
-	define('FABRIC_FUNCTIONS', dirname(__FILE__) . '/functions/');
+if ( !defined('FABRIC_LIB') ){
+	define('FABRIC_LIB', dirname(__FILE__) . '/lib/');
 }
 
-// Auto-Include any php files from the root of our /functions/ directory
-if ( is_dir( FABRIC_FUNCTIONS ) && $functions_handle = opendir( FABRIC_FUNCTIONS ) ) {
+// Auto-Include any php files from the root of our /lib/ directory
+if ( is_dir( FABRIC_LIB ) && $functions_handle = opendir( FABRIC_LIB ) ) {
 
     while (false !== ($entry = readdir($functions_handle))) {
 		$ext = pathinfo($entry, PATHINFO_EXTENSION);
 		if($ext == 'php') {
-			include ( FABRIC_THEME_DIR . 'functions/' . $entry );
+			include ( FABRIC_LIB . $entry );
 		}
     }
     closedir($functions_handle);

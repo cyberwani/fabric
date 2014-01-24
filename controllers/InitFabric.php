@@ -20,7 +20,7 @@ class InitFabric
 
 	public function __construct()
 	{
-		//add_action( 'init', array( new BaseFabric, 'my_test' ) );
+		add_action( 'wp_head', array( new BaseFabric, 'google_analytics_tracking' ), 99 );
 	}
 
 }
