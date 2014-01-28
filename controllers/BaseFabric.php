@@ -27,12 +27,7 @@ class BaseFabric
 
 		$this->show_sidebar = $this->show_sidebar();
 
-		$this->google_analytics_id = 'ua-123';
-	}
-
-	public function get_head( $name = null )
-	{
-		return $this->get_template( 'head', $name, $this );
+		$this->google_analytics_id = '';
 	}
 
 	public function get_header( $name = null )
@@ -113,7 +108,9 @@ class BaseFabric
 	private function sidebar_blacklist()
 	{
 		return array(
-			is_page('ham')
+			// is_page('ham'),
+			// 'book' == get_post_type(),
+			// is_category()
 		);
 	}
 

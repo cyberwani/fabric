@@ -53,7 +53,7 @@ function fabric_find_assets( $ext, $public_path, $local_path ) {
 	if ($assets_handle = opendir($local_path)) {
 	    while (false !== ($file = readdir($assets_handle))) {
 			$fileinfo = pathinfo($file);
-			if($fileinfo['extension'] == $ext) {
+			if(isset($fileinfo['extension']) && $fileinfo['extension'] == $ext) {
 				$asset = fabric_maybe_enqueue_asset( $file, $fileinfo, $public_path, $local_path );
 				
 				if( $asset )
@@ -67,7 +67,6 @@ function fabric_find_assets( $ext, $public_path, $local_path ) {
 		return $assets_to_enqueue;
 
 	return false;
-
 }
 
 function fabric_maybe_enqueue_asset( $asset, $fileinfo, $public_path, $local_path ) {
@@ -81,6 +80,8 @@ function fabric_maybe_enqueue_asset( $asset, $fileinfo, $public_path, $local_pat
 	$dependencies = explode( '+', $fileinfo['filename'] );
 	$handle = array_shift( $dependencies );
 
+	$handle = preg_replace( '/^header_|^footer_/', '', $handle );
+
 	return array(
 		'handle' 	=> $handle,
 		'src' 		=> $public_path . $asset,
@@ -88,5 +89,4 @@ function fabric_maybe_enqueue_asset( $asset, $fileinfo, $public_path, $local_pat
 		'ver'		=> filemtime( $local_path . $asset ),
 		'in_footer'	=> $footer_match
 	);
-
 }

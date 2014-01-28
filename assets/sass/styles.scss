@@ -1,7 +1,7 @@
 // Fabric Styling
 
 //
-// Layout & Frameworks
+// Frameworks
 //
 
 // Import your SaSS Frameworks
@@ -16,139 +16,14 @@ $max-width: 100%;
 // Configure Compass
 $default-border-radius: 3px;
 
-
-//
-// Color Scheme
-//
-
-// Define your greyscale colors
-$black: #222;
-$white: #fff;
-$grey: #e4e4e4;
-$light-grey: #f1f1f1;
-$dark-grey: #888;
-
-// Define your accent colors
-$brand-color: #ee7946;
-$action-color: #33b9d2;
-$function-color: #444;
-//$info-color: blue;
-//$notice-color: #333;
-//$alert-color: red;
-
-// Define your hover colors
-$hov-brand: darken($brand-color, 5%);
-$hov-action: darken($action-color, 5%);
-$hov-function: darken($function-color, 5%);
-
-
-//
-// Fonts
-//
-
-// Define your font sizes
-$fs-huge: 2em;
-$fs-big: 1.5em;
-$fs-default: 1em;
-$fs-small: 0.8em;
-$fs-tiny: 0.5em;
-
-// Define your font weights
-$fw-thick: 800;
-$fw-bold: 600;
-$fw-default: 400;
-$fw-light: 300;
-$fw-thin: 200;
-
-// Define your font families
-$ff-default: arial, sans-serif;
-$ff-stylish: helvetica, arial, sans-serif;
-
-
-
-//
-// Resets
-//
-
-
-
-//
-// Layout
-//
-
-$spacing-layout: 3em;
-
-body {
-  background: $white;
-  font-family: $ff-default;
-  font-size: $fs-default;
-  color: $black;
-  padding: 0;
-  margin: 0;
-}
-
-#content {
-  background: $white;
-}
-
-.container {
-  @include outer-container;
-  @include pad($spacing-layout);
-}
-
-.alt-container {
-  @include outer-container;
-  @include pad($spacing-layout);
-  background-color: $light-grey;
-}
-
-
-//
-// Misc. Global Styles
-//
-
-@mixin tight {
-  margin: 0;
-  padding: 0;
-}
-
-a {
-  color: $action-color;
-  text-decoration: none;
-  &:hover {
-    text-decoration: underline;
-  }
-}
-
-
-
-
 //
 // Imports
 //
 
+// Partials
+@import 'partials/normalize';
+@import 'partials/variables';
+@import 'partials/wordpress';
+
 // Page Elements
-@import 'section-header';
-@import 'section-footer';
-@import 'section-main-menu';
-
-// Content Features
-@import 'content-headings';
-@import 'content-buttons';
-@import 'content-lists';
-//@import 'content-tables';
-
-// Unique Pages
-@import 'page-contact';
-//@import 'page-team';
-//@import 'blog-listing';
-//@import 'blog-post';
-
-// Devices
-//@import 'device-tablet-landscape';
-//@import 'device-tablet-portrait';
-//@import 'device-phone-landscape';
-//@import 'device-phone-portrait';
-
-// Browsers
-//@import 'browser-ie';
+@import 'pages/home';
