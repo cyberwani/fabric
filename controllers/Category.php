@@ -11,7 +11,7 @@
 
 namespace Fabric\Controllers;
 
-class CategoryFabric extends BaseFabric
+class Category extends Base
 {
 
 	public function __construct()

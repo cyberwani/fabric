@@ -110,7 +110,7 @@ function fabric_body_class($classes) {
     }
 
     // Current controller
-    $classes[] = basename( FABRIC_CONTROLLER );
+    $classes[] = 'controller-' . FABRIC_CONTROLLER;
 
     // Remove unnecessary classes
     $home_id_class = 'page-id-' . get_option('page_on_front');

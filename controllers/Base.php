@@ -11,14 +11,14 @@
 
 namespace Fabric\Controllers;
 
-class BaseFabric
+class Base
 {
 
 	public $show_sidebar = true;
 
 	public $page_type;
 
-	public $google_analytics_id = false;
+	public $google_analytics_id = '';
 
 
 	public function __construct()
@@ -26,8 +26,6 @@ class BaseFabric
 		$this->page_type = $this->page_type();
 
 		$this->show_sidebar = $this->show_sidebar();
-
-		$this->google_analytics_id = '';
 	}
 
 	public function get_header( $name = null )
