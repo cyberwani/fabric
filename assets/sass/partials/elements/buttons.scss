@@ -1,0 +1,24 @@
+.btn {
+  @include transition(all .25s);
+  display: inline-block;
+  width: auto;
+  font-size: em(14);
+  text-align: center;
+  background-color: $btn-bgc;
+  color: white;
+  text-transform: uppercase;
+  padding: .5em .75em;
+
+  #{$pseudos} {
+    background-color: white;
+    border-color: $btn-bgc;
+    color: $btn-bgc;
+  }
+
+  &.btn-reversed {
+    background-color: white;
+    border-color: $btn-bgc;
+    color: $btn-bgc;
+  }
+
+}

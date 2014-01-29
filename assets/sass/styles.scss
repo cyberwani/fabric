@@ -1,29 +1,33 @@
 // Fabric Styling
 
-//
-// Frameworks
-//
-
-// Import your SaSS Frameworks
-@import "compass/css3/opacity";
-@import "compass/css3/border-radius";
+// GLOBALS
+// This directory should contain all of your non-printing styles,
+// allowing for a single folder that can bootstrap any new stylesheet.
+// You should pretty much be able to reskin an entire website
+// by updating the variables and extends
+@import "compass";
 @import "bourbon";
+@import "global/mixins";
+@import "global/functions";
+@import "global/extends";
+@import "global/variables/*";
 
-// Configure your grid
+// BASE
+// these act as the core skin of the project
+// if you're using a css framework like Bootstrap
+// or Foundation, it should go in here
+@import "base/normalize";
+@import "base/responsive-helpers";
+@import "base/typography";
+
+// LAYOUT
+// By separating layout from style, you ensure adherence to a 
+// consistent grid and set the foundation for a responsive layout 
 @import "neat";
-$max-width: 100%;
+@import "layout/pages/home"; // as an emample...
 
-// Configure Compass
-$default-border-radius: 3px;
-
-//
-// Imports
-//
-
-// Partials
-@import 'partials/normalize';
-@import 'partials/variables';
-@import 'partials/wordpress';
-
-// Page Elements
-@import 'pages/home';
+// PARTIALS
+// If done properly, each partial should simply be
+// a list of extends, mixins and vertical rhythm
+@import "partials/misc/wordpress";
+@import "partials/elements/buttons"; // as an example

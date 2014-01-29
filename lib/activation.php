@@ -7,7 +7,7 @@ if ( !defined('FABRIC_ACTIVATION_DIR') ){
     define('FABRIC_ACTIVATION_DIR', dirname(__FILE__) . '/activation/');
 }
 if ( !defined('FABRIC_PACKAGES_DIR') ){
-    define('FABRIC_PACKAGES_DIR', dirname(__FILE__) . '/activation/packages/');
+    define('FABRIC_PACKAGES_DIR', dirname(__FILE__) . '/packages/');
 }
 
 require_once FABRIC_ACTIVATION_DIR . '/includes/helper.php';
@@ -66,7 +66,7 @@ function fabric_customize($wp_customize) {
     $wp_customize->get_section('static_front_page')->title = __( 'Permalinks & Static Home Page' );
     $wp_customize->get_section('static_front_page')->description = '';
     $wp_customize->get_section('static_front_page')->priority = 30;
-    $wp_customize->add_setting( 'fabric-permalinks', array( 'default' => true, 'type' => 'option', 'transport' => 'postMessage', 'capability' => 'edit_theme_options' ));
+    $wp_customize->add_setting( 'fabric-permalinks', array( 'default' => false, 'type' => 'option', 'transport' => 'postMessage', 'capability' => 'edit_theme_options' ));
     $wp_customize->add_control(
         new WP_Customize_Control_With_Description(
             $wp_customize,
@@ -86,7 +86,7 @@ function fabric_customize($wp_customize) {
         'title'         => __('Create and Set Navigation Menu', 'fabric'),
         'priority'      => 40
     ) );
-    $wp_customize->add_setting( 'fabric-nav-menu', array( 'default' => true, 'type' => 'option', 'transport' => 'postMessage', 'capability' => 'edit_theme_options' ));
+    $wp_customize->add_setting( 'fabric-nav-menu', array( 'default' => false, 'type' => 'option', 'transport' => 'postMessage', 'capability' => 'edit_theme_options' ));
     $wp_customize->add_control(
         new WP_Customize_Control_With_Description(
             $wp_customize,

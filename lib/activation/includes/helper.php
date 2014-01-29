@@ -120,8 +120,8 @@ if (class_exists('WP_Customize_Control')) {
         {
             $packages = fabric_get_packages();
             ?>
-            <script src="<?php echo get_template_directory_uri(); ?>/functions/activation/includes/theme-customizer.js"></script>
-            <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/functions/activation/includes/theme-customizer.css" type="text/css">
+            <script src="<?php echo get_template_directory_uri(); ?>/lib/activation/includes/theme-customizer.js"></script>
+            <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/lib/activation/includes/theme-customizer.css" type="text/css">
 
             <small class="description"><?php printf(__('Choose a preconfigured installation package', 'fabric')); ?></small>
             <select name="fabric_theme_activation_options[fabric_package]" id="choose_a_package">
