@@ -11,59 +11,26 @@
 
 namespace Fabric\Controllers;
 
-class Base
+class Base extends FabricController
 {
 
 	public $show_sidebar = true;
-
-	public $page_type;
 
 	public $google_analytics_id = '';
 
 
 	public function __construct()
 	{
-		$this->page_type = $this->page_type();
-
 		$this->show_sidebar = $this->show_sidebar();
 	}
 
-	public function get_header( $name = null )
+	private function sidebar_blacklist()
 	{
-		return $this->get_template( 'header', $name, $this );
-	}
-
-	public function get_sidebar( $name = null )
-	{
-		return $this->get_template( 'sidebar', $name, $this );
-	}
-
-	public function get_footer( $name = null )
-	{
-		return $this->get_template( 'footer', $name, $this );
-	}
-
-	public function get_template_part( $slug, $name = null )
-	{
-		return $this->get_template( $slug, $name, $this, true );
-	}
-
-	private function get_template( $type, $name, &$view, $template_part = false )
-	{
-		if( $template_part ) {
-			do_action( "get_template_part_{$type}", $type, $name );
-		} else {
-			do_action( "get_{$type}", $name );
-		}
-
-		$templates = array();
-		$name = (string) $name;
-		if ( '' !== $name )
-			$templates[] = "{$type}-{$name}.php";
-
-		$templates[] = "{$type}.php";
-
-		include locate_template($templates, false);
+		return array(
+			// is_page('slug'),
+			// 'book' == get_post_type(),
+			// is_category()
+		);
 	}
 
 	public function loop( $post_type, $additional_args = array() )
@@ -85,7 +52,6 @@ class Base
 	{
 		if( !$this->google_analytics_id )
 			return;
-
 		?>
 		<script type="text/javascript">
 
@@ -103,15 +69,6 @@ class Base
 		<?php
 	}
 
-	private function sidebar_blacklist()
-	{
-		return array(
-			// is_page('ham'),
-			// 'book' == get_post_type(),
-			// is_category()
-		);
-	}
-
 	private function show_sidebar()
 	{
 		if( !$this->show_sidebar )
@@ -121,23 +78,6 @@ class Base
 			return false;
 
 		return true;
-	}
-
-	private function page_type()
-	{
-		if( is_category() )
-			return 'category';
-
-		if( is_archive() )
-			return 'archive';
-
-		if( is_404() )
-			return '404';
-
-		$post_type = get_post_type();
-		
-		if( !empty( $post_type ) )
-			return $post_type;
 	}
 
 }

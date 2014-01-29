@@ -1,22 +1,18 @@
 <?php
 /**
  * =======================================
- * Base Controller
+ * Page Controller
  * =======================================
- *
- * 
- * @author Matt Keys <matt@uptrending.com>
- * @version 1.0
  */
 
 namespace Fabric\Controllers;
 
-class Category extends Base
+class Page extends Base
 {
 
 	public function __construct()
 	{
-
+		parent::__construct();
 	}
 
 }

@@ -1,22 +1,18 @@
 <?php
 /**
  * =======================================
- * Taxonomy Controller
+ * Archive Controller
  * =======================================
- *
- * 
- * @author Matt Keys <matt@uptrending.com>
- * @version 1.0
  */
 
 namespace Fabric\Controllers;
 
-class Taxonomy extends Base
+class Archive extends Base
 {
 
 	public function __construct()
 	{
-
+		parent::__construct();
 	}
 
 }

@@ -1,7 +1,7 @@
 <?php
 /**
  * =======================================
- * Fabric Controller Autoload
+ * Fabric Controller Autoloader & Wrapper Functions
  * =======================================
  *
  * 
@@ -9,8 +9,7 @@
  * @version 1.0
  */
 
-add_action( 'fabric_loaded', array( new FabricController, 'init_controller' ) );
-add_action( 'wp', array( new FabricController, 'load_controller' ) );
+namespace Fabric\Controllers;
 
 class FabricController
 {
@@ -30,7 +29,45 @@ class FabricController
 
 	public function init_controller()
 	{
-		$init_controller = new Fabric\Controllers\Init;
+		$init_controller = new Init;
+	}
+
+	public function get_header( $name = null )
+	{
+		return $this->get_template( 'header', $name, $this );
+	}
+
+	public function get_sidebar( $name = null )
+	{
+		return $this->get_template( 'sidebar', $name, $this );
+	}
+
+	public function get_footer( $name = null )
+	{
+		return $this->get_template( 'footer', $name, $this );
+	}
+
+	public function get_template_part( $slug, $name = null )
+	{
+		return $this->get_template( $slug, $name, $this, true );
+	}
+
+	private function get_template( $type, $name, &$view, $template_part = false )
+	{
+		if( $template_part ) {
+			do_action( "get_template_part_{$type}", $type, $name );
+		} else {
+			do_action( "get_{$type}", $name );
+		}
+
+		$templates = array();
+		$name = (string) $name;
+		if ( '' !== $name )
+			$templates[] = "{$type}-{$name}.php";
+
+		$templates[] = "{$type}.php";
+
+		include locate_template($templates, false);
 	}
 
 	private function controller_hierarchy()
@@ -294,14 +331,14 @@ class FabricController
 	{
 		if( empty( $slug ) )
 			$slug = basename( get_permalink() );
-	 
+
 		$delimeter = array( '-', '_', ' ' );
 		$slug_parts = explode( $delimeter[0], str_replace($delimeter, $delimeter[0], $slug ) );
 		foreach( $slug_parts as $key => $part )
 		{
 			$slug_parts[$key] = ucfirst($part);
 		}
-	 
+
 		$formatted_slug = implode('', $slug_parts);
 	 
 		if( empty( $formatted_slug ) ) {
@@ -309,7 +346,7 @@ class FabricController
 				$formatted_slug = 'Home';
 			}
 		}
-	 
+
 		return $formatted_slug;
 	}
 
@@ -326,3 +363,6 @@ class FabricController
 	}
 
 }
+
+add_action( 'fabric_loaded', array( new FabricController, 'init_controller' ) );
+add_action( 'wp', array( new FabricController, 'load_controller' ) );
