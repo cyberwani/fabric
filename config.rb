@@ -12,7 +12,7 @@ javascripts_dir = "assets/js"
 output_style = :expanded
 #  :nested or :compact or :compressed or :expanded
 
-# To enable relative paths to assets via compass helper functions. Uncomment:
+# To enable relative paths to assets via compass helper functions.
 relative_assets = false
 
 # To disable debugging comments that display the original location of your selectors. Uncomment:

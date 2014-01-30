@@ -7,6 +7,7 @@
  * 
  * @author Matt Keys <matt@uptrending.com>
  * @version 1.0
+ * Based on http://scribu.net/wordpress/theme-wrappers.html by Scribu
  */
 
 function fabric_template_path() {

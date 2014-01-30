@@ -44,7 +44,7 @@ class FabricActivation
 		add_action( 'customize_save_after', array( $this, 'after_save_customizer' ) );
 	}
 
-	private function customizer($wp_customize) {
+	public function customizer($wp_customize) {
 
 	    $wp_customize->remove_section('nav');
 	    $wp_customize->remove_section('title_tagline');
@@ -72,7 +72,7 @@ class FabricActivation
 	            $wp_customize,
 	            'fabric-plugin-notifications',
 	            array(
-	                'label'          => __( 'Notify admin about plugins?', 'painter-theme' ),
+	                'label'          => __( 'Notify admin about plugins?', 'fabric' ),
 	                'section'        => 'fabric_plugin_packages',
 	                'settings'       => 'fabric-plugin-notifications',
 	                'type'           => 'checkbox',
@@ -91,12 +91,28 @@ class FabricActivation
 	            $wp_customize,
 	            'fabric-permalinks',
 	            array(
-	                'label'          => __( 'Change permalink structure?', 'painter-theme' ),
+	                'label'          => __( 'Reset permalink structure?', 'fabric' ),
 	                'section'        => 'static_front_page',
 	                'settings'       => 'fabric-permalinks',
 	                'type'           => 'checkbox',
 	                'description'    => 'Change permalinks to: /%postname%/',
 	                'priority'       => 0
+	            )
+	        ) 
+	    );
+
+	    $wp_customize->add_setting( 'fabric-nice-search', array( 'default' => false, 'type' => 'option', 'transport' => 'postMessage', 'capability' => 'edit_theme_options' ));
+	    $wp_customize->add_control(
+	        new WP_Customize_Control_With_Description(
+	            $wp_customize,
+	            'fabric-nice-search',
+	            array(
+	                'label'          => __( 'Enable Nice Search?', 'fabric' ),
+	                'section'        => 'static_front_page',
+	                'settings'       => 'fabric-nice-search',
+	                'type'           => 'checkbox',
+	                'description'    => 'Enable /?s= to /search/ redirect',
+	                'priority'       => 5
 	            )
 	        ) 
 	    );
@@ -111,7 +127,7 @@ class FabricActivation
 	            $wp_customize,
 	            'fabric-nav-menu',
 	            array(
-	                'label'          => __( 'Create "Primary Navigation" menu', 'painter-theme' ),
+	                'label'          => __( 'Create "Primary Navigation" menu', 'fabric' ),
 	                'section'        => 'fabric_nav_menu',
 	                'settings'       => 'fabric-nav-menu',
 	                'type'           => 'checkbox',
@@ -121,7 +137,7 @@ class FabricActivation
 	    );
 	}
 
-	private function after_save_customizer() {
+	public function after_save_customizer() {
 
 	    // Get options from customizer
 	    $customizer_options = json_decode( wp_unslash( $_POST['customized'] ) );

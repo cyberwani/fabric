@@ -20,11 +20,23 @@ class Base extends FabricController
 
 	public $google_analytics_id = '';
 
-
 	public function __construct()
 	{
 		$this->show_sidebar = $this->show_sidebar();
 		$this->show_title = $this->show_title();
+	}
+
+	public function config()
+	{
+		add_theme_support('menus');
+		add_theme_support('post-thumbnails');
+
+		register_nav_menus(array(
+			'primary_navigation' => __('Primary Navigation', 'fabric'),
+		));
+
+		// length in words for excerpt_length filter
+		define('POST_EXCERPT_LENGTH', 40); 
 	}
 
 	private function sidebar_blacklist()

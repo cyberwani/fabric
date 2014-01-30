@@ -30,6 +30,10 @@ class FabricAutoEnqueue
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_js' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_css' ) );
 		add_action( 'wp_footer', array( $this, 'enqueue_css' ) );
+
+		if (is_single() && comments_open() && get_option('thread_comments')) {
+			wp_enqueue_script('comment-reply');
+		}
 	}
 
 	public function enqueue_js() {

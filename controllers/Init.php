@@ -21,6 +21,7 @@ class Init
 	public function __construct()
 	{
 		add_action( 'wp_head', array( new Base, 'google_analytics_tracking' ), 99 );
+		add_action( 'init', array( new Base, 'config' ), 0 );
 	}
 
 }

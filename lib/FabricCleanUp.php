@@ -42,12 +42,11 @@ class FabricCleanUp
 
 		add_filter( 'get_bloginfo_rss', array( $this, 'remove_default_description' ) );
 
-		if ( current_theme_supports( 'nice-search' ) ) {
+		if ( get_option( 'fabric-nice-search' ) ) {
 		    add_action( 'template_redirect', array( $this, 'nice_search_redirect' ) );
 		}
 
 		add_filter( 'request', array( $this, 'request_filter' ) );
-
 	}
 
 	/**
@@ -224,11 +223,10 @@ class FabricCleanUp
 
 	    $search_base = $wp_rewrite->search_base;
 	    if (is_search() && !is_admin() && strpos($_SERVER['REQUEST_URI'], "/{$search_base}/") === false) {
-	        wp_redirect(home_url("/{$search_base}/" . urlencode(get_query_var('s'))));
+	        wp_redirect( home_url( "/{$search_base}/" . urlencode( get_query_var('s') ) ) );
 	        exit();
 	    }
 	}
-
 
 	/**
 	 * Fix for empty search queries redirecting to home page

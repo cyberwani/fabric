@@ -9,23 +9,19 @@ if ( !defined('FABRIC_CONTROLLERS') ){
 if ( !defined('FABRIC_VIEWS') ){
 	define('FABRIC_VIEWS', dirname(__FILE__) . '/views/');
 }
-if ( !defined('FABRIC_LIB') ){
-	define('FABRIC_LIB', dirname(__FILE__) . '/lib/');
-}
 
-// Auto-Include any php files from the root of our /lib/ directory
-if ( is_dir( FABRIC_LIB ) && $functions_handle = opendir( FABRIC_LIB ) ) {
+// Include all Fabric lib classes
+include 'lib/FabricActivation.php';
+include 'lib/FabricAutoEnqueue.php';
+include 'lib/FabricCacheBusting.php';
+include 'lib/FabricCleanUp.php';
+include 'lib/FabricController.php';
+include 'lib/FabricIncludePostTypes.php';
+include 'lib/FabricIncludeTaxonomies.php';
+include 'lib/FabricLoopIterator.php';
+include 'lib/FabricTemplateWrapper.php';
 
-    while (false !== ($entry = readdir($functions_handle))) {
-		$ext = pathinfo($entry, PATHINFO_EXTENSION);
-		if($ext == 'php') {
-			include ( FABRIC_LIB . $entry );
-		}
-    }
-    closedir($functions_handle);
-}
-
-// Trigger our fabric_loaded actions
+// Trigger our fabric_loaded actions. This action happens before Init is fired
 do_action( 'fabric_loaded' );
 
 
