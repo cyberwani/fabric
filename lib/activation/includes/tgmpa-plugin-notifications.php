@@ -22,7 +22,7 @@ function fabric_setup_plugin_notifications() {
         {
             foreach( $group_info['plugins'] as $plugin => $plugin_info )
             {
-                $slug = basename($plugin_info['url']);
+                $slug = basename($plugin_info['source']);
                 if( in_array( $slug, $selected_plugins_array ) ) {
                     $plugins_to_install[$x]['name']     = $plugin;
                     $plugins_to_install[$x]['slug']     = $slug;

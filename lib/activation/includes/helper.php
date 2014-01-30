@@ -61,7 +61,7 @@ function fabric_get_packages() {
 function fabric_check_if_plugin_installed( $slug ) {
 
 	$keys = array_keys( get_plugins() );
-
+    file_put_contents($_SERVER['DOCUMENT_ROOT'] . '/log1.txt', print_r($keys, true), FILE_APPEND);
 	foreach ( $keys as $key ) {
 		if ( preg_match( '|^' . $slug .'/|', $key ) )
 			return $key;
@@ -69,6 +69,14 @@ function fabric_check_if_plugin_installed( $slug ) {
 
 	return false;
 
+}
+
+function fabric_starts_with( $haystack, $needle ) {
+    return $needle === "" || strpos($haystack, $needle) === 0;
+}
+
+function fabric_ends_with( $haystack, $needle ) {
+    return $needle === "" || substr($haystack, -strlen($needle)) === $needle;
 }
 
 function fabric_install_packages( $customizer_options ) {
@@ -86,6 +94,25 @@ function fabric_install_packages( $customizer_options ) {
 
     foreach( $plugins_to_install as $plugin )
     {
+        // Handle local zipped plugins
+        if( fabric_starts_with( $plugin, 'local_' ) && fabric_ends_with( $plugin, '.zip' ) ) {
+
+            $slug = substr( $plugin, 6 );
+            $slug = substr( $slug, 0, -4 );
+
+            $plugin_exist = fabric_check_if_plugin_installed( $slug );
+
+            if( $plugin_exist )
+                continue;
+
+            $plugin_src = FABRIC_PACKAGES_DIR . 'local_plugins/' . $slug . '.zip';
+
+            $plugin_sources[$x] = $plugin_src;
+            $x++;
+
+            continue;
+        }
+
     	$plugin_exist = fabric_check_if_plugin_installed( $plugin );
 
     	if( $plugin_exist )
