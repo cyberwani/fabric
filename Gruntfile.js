@@ -41,7 +41,7 @@ module.exports = function(grunt) {
 
     // lint your artisinal javascripts
     jshint: {
-      beforeconcat: ['assets/js/source/footer_main+jquery.js']
+      beforeconcat: ['assets/js/source/main.js']
     },
 
     // concatenate any plugins or libraries in /vendor
@@ -57,14 +57,11 @@ module.exports = function(grunt) {
     // minify our two js files
     // these can be concatenated while preserving source order 
     // if you wanted to limit your HTTP requests further
-    // 
-    // @TODO the -min in the destination pathnames should be changed to .min
-    // once Matt's got his rewrite magics sorted to be multi-dot-friendly
     uglify: {
       dist: {
         files: {
-          'assets/js/footer_plugins-min+jquery.js': 'assets/js/source/plugins.js',
-          'assets/js/footer_main-min+jquery.js': 'assets/js/source/footer_main+jquery.js'
+          'assets/js/footer_plugins.min+jquery.js': 'assets/js/source/plugins.js',
+          'assets/js/footer_main.min+plugins.js': 'assets/js/source/main.js'
         }
       }
     },
