@@ -1,4 +1,13 @@
 <?php
+/**
+ * =======================================
+ * Fabric Loop Iterator
+ * =======================================
+ *
+ * 
+ * @author Matt Keys <matt@uptrending.com>
+ * @version 1.0
+ */
 
 class FabricLoopIterator implements Iterator 
 {

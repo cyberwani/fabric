@@ -2,7 +2,7 @@
 
 function fabric_activation() {
 
-    $plugin_src = file_get_contents(FABRIC_ACTIVATION_DIR . 'includes/fabric-template-redirection-template.php');
+    $plugin_src = file_get_contents(FABRIC_ACTIVATION_DIR . 'fabric-template-redirection-template.php');
 
     if( !is_dir(WP_CONTENT_DIR . '/mu-plugins') )
         mkdir(WP_CONTENT_DIR . '/mu-plugins', 0755);
@@ -27,7 +27,7 @@ add_action('switch_theme', 'fabric_deactivation');
 function fabric_read_package_ajax() {
 
     $package = $_POST['fabric_package'];
-    require_once FABRIC_ACTIVATION_DIR . 'includes/spyc.php';
+    require_once FABRIC_ACTIVATION_DIR . 'spyc.php';
     $packages = Spyc::YAMLLoad(FABRIC_PACKAGES_DIR . $package);
 
     echo json_encode($packages);
@@ -36,7 +36,7 @@ function fabric_read_package_ajax() {
 add_action('wp_ajax_fabric_read_package_ajax', 'fabric_read_package_ajax');
 
 function fabric_read_package($package) {
-    require_once FABRIC_ACTIVATION_DIR . 'includes/spyc.php';
+    require_once FABRIC_ACTIVATION_DIR . 'spyc.php';
     $packages = Spyc::YAMLLoad(FABRIC_PACKAGES_DIR . $package);
 
     return $packages;
@@ -61,7 +61,7 @@ function fabric_get_packages() {
 function fabric_check_if_plugin_installed( $slug ) {
 
 	$keys = array_keys( get_plugins() );
-    file_put_contents($_SERVER['DOCUMENT_ROOT'] . '/log1.txt', print_r($keys, true), FILE_APPEND);
+
 	foreach ( $keys as $key ) {
 		if ( preg_match( '|^' . $slug .'/|', $key ) )
 			return $key;
@@ -130,7 +130,7 @@ function fabric_install_packages( $customizer_options ) {
     if( empty( $plugin_sources ) )
         return;
 
-    require_once FABRIC_ACTIVATION_DIR . '/includes/class-tgm-plugin-activation.php';
+    require_once FABRIC_ACTIVATION_DIR . '/class-tgm-plugin-activation.php';
 
     $TGM_Bulk_Installer = new TGM_Bulk_Installer;
     $TGM_Bulk_Installer->is_automatic = true;
@@ -147,8 +147,8 @@ if (class_exists('WP_Customize_Control')) {
         {
             $packages = fabric_get_packages();
             ?>
-            <script src="<?php echo get_template_directory_uri(); ?>/lib/activation/includes/theme-customizer.js"></script>
-            <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/lib/activation/includes/theme-customizer.css" type="text/css">
+            <script src="<?php echo get_template_directory_uri(); ?>/lib/activation/theme-customizer.js"></script>
+            <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/lib/activation/theme-customizer.css" type="text/css">
 
             <small class="description"><?php printf(__('Choose a preconfigured installation package', 'fabric')); ?></small>
             <select name="fabric_theme_activation_options[fabric_package]" id="choose_a_package">

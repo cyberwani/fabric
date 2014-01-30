@@ -1,10 +1,19 @@
 <?php
+/**
+ * =======================================
+ * Fabric Template Wrapper
+ * =======================================
+ *
+ * 
+ * @author Matt Keys <matt@uptrending.com>
+ * @version 1.0
+ */
 
 function fabric_template_path() {
-	return Fabric_Wrapping::$main_template;
+	return FabricTemplateWrapper::$main_template;
 }
  
-class Fabric_Wrapping {
+class FabricTemplateWrapper {
  
 	/**
 	 * Stores the full path to the main template file
@@ -33,4 +42,4 @@ class Fabric_Wrapping {
 		return locate_template( $templates );
 	}
 }
-add_filter( 'template_include', array( 'Fabric_Wrapping', 'wrap' ), 99 );
+add_filter( 'template_include', array( 'FabricTemplateWrapper', 'wrap' ), 99 );
