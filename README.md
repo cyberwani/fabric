@@ -3,7 +3,17 @@
 Fabric is a lightweight WordPress stack for creating better custom themes in less time.
 
 ## Attribution
-Built by [UpTrending](http://uptrending.com)
+Built by Matt Keys @ [UpTrending](http://uptrending.com)
+
+## Features
+
+#### Template Redirection
+
+Fabric moves all templates (called views in fabric) into a subfolder within the theme directory. Moving the views into a subfolder keeps your theme directory more organized.
+
+Template redirection happens very early on in WordPress, before the theme is actually setup and read by WordPress. This is accomplished using a "must use" plugin in the /wp-content/mu-plugins directory called "FabricTemplateRedirection.php".
+
+### SASS Compiling with Grunt
 
 #### Grunt how-to
 1. Clone or download repo into appropriate project folder
@@ -14,7 +24,7 @@ Built by [UpTrending](http://uptrending.com)
   b. run `grunt watch` which will do the following at any file save:  
     1. prefix any necessary CSS3 declarations you were too lazy to handle yourself  
     2. process, concatenate, and minify .scss & .js files with proper naming and locations  
-    3. compress any images in the `img` directory (excepting svgs; see note in Gruntfile if you need svg support)  
+    3. compress any images in the `img` directory (excluding svgs; see note in Gruntfile if you need svg support)
     4. let LiveReload know what's up (I use [the browser extension](http://feedback.livereload.com/knowledgebase/articles/86242-how-do-i-install-and-use-the-browser-extensions-))  
 
 ##### Dependencies:

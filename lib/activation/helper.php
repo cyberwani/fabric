@@ -1,26 +1,31 @@
 <?php
 
-function fabric_activation() {
+function fabric_activation( $reinstall = false ) {
 
-    $plugin_src = file_get_contents(FABRIC_ACTIVATION_DIR . 'fabric-template-redirection-template.php');
+    $error_string = __( "Fabric was unable to automatically place the 'template redirection' plugin into the mu-plugins folder. This is required for Fabric to function. You must manually place /fabric/lib/activation/FabricTemplateRedirection.php into the /wp-content/mu-plugins/ directory. If the mu-plugins folder does not exist, you should create it.", 'fabric' );
 
-    if( !is_dir(WP_CONTENT_DIR . '/mu-plugins') )
-        mkdir(WP_CONTENT_DIR . '/mu-plugins', 0755);
+    $plugin_src = file_get_contents( FABRIC_ACTIVATION_DIR . 'FabricTemplateRedirection.php' );
 
-    $write_result = file_put_contents(WP_CONTENT_DIR . '/mu-plugins/fabric-template-redirection.php', $plugin_src);
+    if( !is_dir( WP_CONTENT_DIR . '/mu-plugins' ) && is_writable( WP_CONTENT_DIR ) )
+        mkdir( WP_CONTENT_DIR . '/mu-plugins', 0755 );
 
-    if( false == $write_result )
-        delete_option( 'fabric_template_redirection_installed' );
+    if( !is_dir( WP_CONTENT_DIR . '/mu-plugins' ) || !is_writable( WP_CONTENT_DIR . '/mu-plugins' ) ) {
+        $error = new WP_Error( 'redirection', $error_string );
+        die( $error->get_error_message() );
+    }
 
+    $write_result = file_put_contents( WP_CONTENT_DIR . '/mu-plugins/FabricTemplateRedirection.php', $plugin_src );
+
+    if( $reinstall ) {
+        die( __('Fabric template redirection was missing, and has been reinstalled. Please refresh to continue. If problems persist please consult the documentation.', 'fabric' ) );
+    }
 }
 
 function fabric_deactivation() {
 
     // Remove Template Redirection
-    if( file_exists( WP_CONTENT_DIR . '/mu-plugins/fabric-template-redirection.php' ) )
-        unlink(WP_CONTENT_DIR . '/mu-plugins/fabric-template-redirection.php');
-
-    delete_option( 'fabric_template_redirection_installed', 0 );
+    if( file_exists( WP_CONTENT_DIR . '/mu-plugins/FabricTemplateRedirection.php' ) )
+        unlink(WP_CONTENT_DIR . '/mu-plugins/FabricTemplateRedirection.php');
 }
 add_action('switch_theme', 'fabric_deactivation');
 
