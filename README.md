@@ -1,11 +1,31 @@
 # Fabric
 
-Fabric is a lightweight WordPress stack for creating better custom themes in less time.
+Fabric is a lightweight WordPress framework for creating better custom themes in less time.
 
-## Attribution
+### Attribution
 Built by Matt Keys @ [UpTrending](http://uptrending.com)
-
+    
 ## Features
+
+*   [Activation & Packages](#activation--packages)
+    *   [Plugin Packages](#plugin-packages)
+    *   [Permalinks & Static Home Page](#permalinks--static-home-page)
+    *   [Create and Set Navigation Menu](#create-and-set-navigation-menu)
+*   [Template Redirection](#template-redirection)
+*   [Controller Hierarchy & Views](#controller-hierarchy--views)
+    *   [Base Controller](#base-controller)
+    *   [Init Controller](#init-controller)
+    *   [Home Controller](#home-controller)
+    *   [Other Controllers](#other-controllers)
+*   [WP Scaffolding](#wp-scaffolding)
+*   [Auto Enqueue CSS and JS](#auto-enqueue-css-and-js)
+*   [Friendly Cache Busting](#friendly-cache-busting)
+*   [Clean Up](#clean-up)
+*   [Template Wrapper](#template-wrapper)
+*   [SASS Compiling with Grunt](#sass-compiling-with-grunt)
+    *   [Grunt how-to](#grunt-how-to)
+    *   [Dependencies](#dependencies)
+    *   [Notes](#notes)
 
 ### Activation & Packages
 
@@ -252,7 +272,7 @@ If needed, you can create seperate wrappers for post types, such as wrapper-sing
 
 Fabric comes bundled with the 'bones' of a SASS based workflow that is ideal for custom theme development. However using this workflow is optional, so if you feel that you have a better system or would rather stick with what you are most familiar with, feel free to go your own way here.
 
-#### Grunt how-to
+##### Grunt how-to
 1. Clone or download repo into appropriate project folder
 2. `cd` to that directory in your terminal
 3. run `npm install` from the command line (installs grunt and assorted dependencies defined in `package.json` file)
@@ -264,7 +284,7 @@ Fabric comes bundled with the 'bones' of a SASS based workflow that is ideal for
     3. compress any images in the `img` directory (excluding svgs; see note in Gruntfile if you need svg support)
     4. let LiveReload know what's up (I use [the browser extension](http://feedback.livereload.com/knowledgebase/articles/86242-how-do-i-install-and-use-the-browser-extensions-))  
 
-##### Dependencies:
+##### Dependencies
 
 1. [Node.js/npm](http://nodejs.org/)  
 2. [Grunt](http://gruntjs.com/)  
