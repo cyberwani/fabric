@@ -9,14 +9,6 @@ Common:
             source: http://wordpress.org/plugins/advanced-custom-fields/
             description: Fully customise WordPress edit screens with powerful fields. Boasting a professional interface and a powerfull API
 
-        ACF Repeater Field:
-            source: acf-repeater.zip
-            description: The popular repeater field add-on for Advanced Custom Fields
-
-        ACF Options Page:
-            source: acf-options-page.zip
-            description: The popular options page add-on for Advanced Custom Fields
-
         Root Relative URLs:
             source: http://wordpress.org/plugins/root-relative-urls/
             description: Converts all URLs to root-relative URLs for hosting the same site on multiple IPs; easier production migration and better mobile device testing.

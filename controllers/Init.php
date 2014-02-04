@@ -15,13 +15,13 @@
 
 namespace Fabric\Controllers;
 
-class Init
+class Init extends Base
 {
 
 	public function __construct()
 	{
-		add_action( 'wp_head', array( new Base, 'google_analytics_tracking' ), 99 );
-		add_action( 'init', array( new Base, 'config' ), 0 );
+		add_action( 'wp_head', array( $this, 'google_analytics_tracking' ), 99 );
+		add_action( 'init', array( $this, 'config' ), 0 );
 	}
 
 }

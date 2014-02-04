@@ -1,13 +1,12 @@
 <?php
-/**
- * =======================================
- * Fabric Template Redirection
- * =======================================
- *
- * 
- * @author Matt Keys <matt@uptrending.com>
- * @version 1.0
- */
+/*
+Plugin Name: Fabric Template Redirection
+Plugin URI: http://UpTrending.com
+Description: Used with the Fabric theme framework to allow placing of template files into the "views" directory of the active Fabric theme.
+Author: Matt Keys
+Version: 1.0
+Author URI: http://UpTrending.com
+*/
 
 if ( !defined('FABRIC_TEMPLATE_REDIRECTION_ACTIVE') ){
 	define('FABRIC_TEMPLATE_REDIRECTION_ACTIVE', true);

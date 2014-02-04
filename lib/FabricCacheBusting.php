@@ -25,7 +25,7 @@ class FabricCacheBusting
 		global $wp_rewrite;
 		
 		$fabric_new_non_wp_rules = array(
-			'(.+)\.(fabric_[0-9].+)\.(js|css)$' => '$1.$3 [L]'
+			'(.+)\.(fabric_[a-zA-Z0-9_].+)\.(js|css)$' => '$1.$3 [L]'
 		);
 
 		$wp_rewrite->non_wp_rules = array_merge($wp_rewrite->non_wp_rules, $fabric_new_non_wp_rules);

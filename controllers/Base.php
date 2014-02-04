@@ -18,7 +18,7 @@ class Base extends FabricController
 
 	public $show_title = true;
 
-	public $google_analytics_id = '';
+	private $google_analytics_id = '';
 
 	public function __construct()
 	{
