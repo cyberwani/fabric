@@ -38,6 +38,7 @@ Common:
         Quick Cache:
             source: http://wordpress.org/plugins/quick-cache/
             description: Quick Cache provides reliable page caching for WordPress.
+```
 
 The above example will allow the 5 listed plugins to be chosen for automatic installation during activation. Note the source field for each plugin. Plugins hosted on the WordPress respository will automatically be downloaded and installed from WordPress. If you have any plugins that are not on the WordPress repository, you can place them in lib/packages/local_plugins/. If you are installing a local plugin, the source for that plugin in your package file should be the name of the file including the .zip extension.
 
@@ -76,12 +77,13 @@ public function company_info()
 {
 	echo get_option( 'my_company_info' );
 }
+```
 
 You could use that function in your view like so:
 
 ```php
 $view->company_info();
-
+```
 
 ##### Base Controller
 
@@ -102,6 +104,7 @@ foreach( $view->loop( 'the_post_type', $args ) as $post ) :
 	the_title();
 
 endforeach;
+```
 
 Notice that we using $post in our foreach, this is important if you want to be able to use functions like [the_title](http://codex.wordpress.org/Function_Reference/the_title), [the_content](http://codex.wordpress.org/Function_Reference/the_content), [the_permalink](http://codex.wordpress.org/Function_Reference/the_permalink), etc.
 
@@ -128,6 +131,7 @@ public function __construct()
 	add_action( 'init', array( $this, 'config' ), 0 );
 	add_action( 'init', array( new MyFabricClass, 'my_function' ) );
 }
+```
 
 ##### Home Controller
 
