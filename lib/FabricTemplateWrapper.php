@@ -30,7 +30,7 @@ class FabricTemplateWrapper {
 
 		self::$main_template = $template;
 
-		self::$base = substr( basename( self::$main_template ), 0, -4 );
+		self::$base = basename( self::$main_template, '.php' );
 
 		if ( 'index' == self::$base )
 			self::$base = false;

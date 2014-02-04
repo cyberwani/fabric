@@ -54,7 +54,7 @@ You can create multiple package files to organize your plugins.
 
 Fabric comes preconfigured to support a navigation menu called "Primary Navigation", checking the "Create Primary Navigation Menu" option in this section will generate the menu in the Menu area of WordPress and assign the proper menu location.
 
-#### Template Redirection
+### Template Redirection
 
 Fabric moves all templates (called views in fabric) into a subfolder within the theme directory. Moving the views into a subfolder keeps your theme directory more organized.
 
@@ -75,7 +75,7 @@ When working inside of your views, you can access functions or public variables 
 ```php
 public function company_info()
 {
-	echo get_option( 'my_company_info' );
+    echo get_option( 'my_company_info' );
 }
 ```
 
@@ -101,7 +101,7 @@ All other controllers extend from the base controller. Place any logic here that
 $args = array();
 foreach( $view->loop( 'the_post_type', $args ) as $post ) :
 
-	the_title();
+    the_title();
 
 endforeach;
 ```
@@ -111,6 +111,15 @@ Notice that we using $post in our foreach, this is important if you want to be a
 Loop() utilizes an [Iterator class](http://www.php.net/manual/en/class.iterator.php) located in lib/FabricLoopIterator.php. The Iterator class automatically performs a number of operations such as: [setup_postdata](https://codex.wordpress.org/Function_Reference/setup_postdata), [wp_reset_postdata](http://codex.wordpress.org/Function_Reference/wp_reset_postdata), and [paginate_links](http://codex.wordpress.org/Function_Reference/paginate_links) (if using pagination).
 
 ***paged_loop()***: This function simply points to Loop() while setting a third parameter to enable pagination.
+
+```php
+$args = array();
+foreach( $view->paged_loop( 'the_post_type', $args ) as $post ) :
+
+    the_title();
+
+endforeach;
+```
 
 ***google_analytics_tracking()***: Google Analytics asynchronous tracking code snippet. If the $google_analytics_id variable at the top of the Base Controller is set, this code will be output in [wp_head](http://codex.wordpress.org/Plugin_API/Action_Reference/wp_head). The action hook associated with this function can be found in the Init Controller __construct.
 
@@ -127,9 +136,9 @@ Most of the Controllers used by Fabric are loaded on the [wp hook](http://codex.
 ```php
 public function __construct()
 {
-	add_action( 'wp_head', array( $this, 'google_analytics_tracking' ), 99 );
-	add_action( 'init', array( $this, 'config' ), 0 );
-	add_action( 'init', array( new MyFabricClass, 'my_function' ) );
+    add_action( 'wp_head', array( $this, 'google_analytics_tracking' ), 99 );
+    add_action( 'init', array( $this, 'config' ), 0 );
+    add_action( 'init', array( new Single, 'my_function' ) );
 }
 ```
 
@@ -219,13 +228,29 @@ If you are enqueing your own assets outside of the auto enqueue system, and you 
 
 ### Clean Up
 
-Lorem Ipsum
+Fabric implements a number of methods to clean up the output of WordPress. Including:
+
+1. Removing unnecessary head items
+2. Cleaning up language attributes
+3. "Nice" search redirect (if enabled in theme customizer)
+
+Check out lib/FabricCleanUp.php for a comprehensive list of clean up items, and attribution for the code used here.
 
 ### Template Wrapper
 
-Lorem Ipsum
+Fabric utilizes a "wrapper" for its templates, ala [Scribu Theme Wrapper](http://scribu.net/wordpress/theme-wrappers.html), and made popular by [Roots](http://roots.io/).
+
+The purpose of using a wrapper is to keep our template files cleaner. Using a wrapper removes the need to keep calling [get_header](http://codex.wordpress.org/Function_Reference/get_header), [get_footer](http://codex.wordpress.org/Function_Reference/get_footer), and [get_sidebar](http://codex.wordpress.org/Function_Reference/get_sidebar) in each of our templates. Instead these functions are all called only once in views/wrapper.php. 
+
+Within the views/wrapper.php file you will see `include fabric_template_path();`, this is where the code for the template you are viewing is injected into the wrapper. So if the page you are viewing is for a single post, the contents of your single.php or single-*.php would be injected here.
+
+##### Using Multiple Wrappers
+
+If needed, you can create seperate wrappers for post types, such as wrapper-single.php, wrapper-page.php, etc. However having lots of wrappers in my opinion defeats the purpose of using one in the first place, so I prefer to keep my wrapper agnostic enough that it works with all of my templates.
 
 ### SASS Compiling with Grunt
+
+Fabric comes bundled with the 'bones' of a SASS based workflow that is ideal for custom theme development. However using this workflow is optional, so if you feel that you have a better system or would rather stick with what you are most familiar with, feel free to go your own way here.
 
 #### Grunt how-to
 1. Clone or download repo into appropriate project folder
