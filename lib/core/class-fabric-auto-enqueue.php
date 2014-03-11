@@ -22,7 +22,7 @@ if ( !defined('FABRIC_CSS_ASSETS_PUBLIC_DIR') ){
     define('FABRIC_CSS_ASSETS_PUBLIC_DIR', get_bloginfo('template_directory') . '/assets/css/');
 }
 
-class FabricAutoEnqueue
+class Fabric_Auto_Enqueue
 {
 
 	public function init()
@@ -111,4 +111,4 @@ class FabricAutoEnqueue
 
 }
 
-add_action( 'fabric_loaded', array( new FabricAutoEnqueue, 'init' ) );
+add_action( 'fabric_loaded', array( new Fabric_Auto_Enqueue, 'init' ) );

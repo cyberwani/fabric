@@ -11,10 +11,10 @@
  */
 
 function fabric_template_path() {
-	return FabricTemplateWrapper::$main_template;
+	return Fabric_Template_Wrapper::$main_template;
 }
  
-class FabricTemplateWrapper {
+class Fabric_Template_Wrapper {
  
 	/**
 	 * Stores the full path to the main template file
@@ -43,4 +43,4 @@ class FabricTemplateWrapper {
 		return locate_template( $templates );
 	}
 }
-add_filter( 'template_include', array( 'FabricTemplateWrapper', 'wrap' ), 99 );
+add_filter( 'template_include', array( 'Fabric_Template_Wrapper', 'wrap' ), 99 );

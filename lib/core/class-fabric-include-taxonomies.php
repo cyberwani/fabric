@@ -10,10 +10,10 @@
  */
 
 if ( !defined('FABRIC_TAX_DIR') ){
-    define('FABRIC_TAX_DIR', dirname(__FILE__) . '/taxonomies/');
+    define('FABRIC_TAX_DIR', FABRIC_THEME_DIR . 'lib/taxonomies/');
 }
 
-class FabricIncludeTaxonomies
+class Fabric_Include_Taxonomies
 {
 
 	public function init()
@@ -44,4 +44,4 @@ class FabricIncludeTaxonomies
 
 }
 
-add_action( 'fabric_loaded', array( new FabricIncludeTaxonomies, 'init' ) );
+add_action( 'fabric_loaded', array( new Fabric_Include_Taxonomies, 'init' ) );

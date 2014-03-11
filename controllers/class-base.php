@@ -11,7 +11,7 @@
 
 namespace Fabric\Controllers;
 
-class Base extends FabricController
+class Base extends Fabric_Controller
 {
 
 	public $show_sidebar = true;
@@ -68,7 +68,7 @@ class Base extends FabricController
 
 		$loop = new \WP_Query( $merged_args );
 		if( !empty($loop->posts) ) {
-			return new \FabricLoopIterator( $loop, $paginate );
+			return new \Fabric_Loop_Iterator( $loop, $paginate );
 		} else {
 			return array();
 		}

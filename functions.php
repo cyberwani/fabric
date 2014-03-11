@@ -11,7 +11,7 @@ if( !defined('FABRIC_VIEWS') ) {
 }
 
 // Include fabric activation lib class
-include 'lib/FabricActivation.php';
+include 'lib/core/class-fabric-activation.php';
 
 // Verify template redirection is active, attempt to install if not
 if( !defined('FABRIC_TEMPLATE_REDIRECTION_ACTIVE') && !is_admin() ) {
@@ -19,14 +19,14 @@ if( !defined('FABRIC_TEMPLATE_REDIRECTION_ACTIVE') && !is_admin() ) {
 }
 
 // Include all other Fabric lib classes
-include 'lib/FabricAutoEnqueue.php';
-include 'lib/FabricCacheBusting.php';
-include 'lib/FabricCleanUp.php';
-include 'lib/FabricController.php';
-include 'lib/FabricIncludePostTypes.php';
-include 'lib/FabricIncludeTaxonomies.php';
-include 'lib/FabricLoopIterator.php';
-include 'lib/FabricTemplateWrapper.php';
+include 'lib/core/class-fabric-auto-enqueue.php';
+include 'lib/core/class-fabric-cache-busting.php';
+include 'lib/core/class-fabric-clean-up.php';
+include 'lib/core/class-fabric-controller.php';
+include 'lib/core/class-fabric-include-post-types.php';
+include 'lib/core/class-fabric-include-taxonomies.php';
+include 'lib/core/class-fabric-loop-iterator.php';
+include 'lib/core/class-fabric-template-wrapper.php';
 
 // Trigger our fabric_loaded actions. This action happens before Init is fired
 do_action( 'fabric_loaded' );

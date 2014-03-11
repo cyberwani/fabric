@@ -12,7 +12,7 @@ if ( !defined('FABRIC_TEMPLATE_REDIRECTION_ACTIVE') ){
 	define('FABRIC_TEMPLATE_REDIRECTION_ACTIVE', true);
 }
 
-class FabricTemplateRedirection
+class Fabric_Template_Redirection
 {
 
 	public function init()
@@ -43,4 +43,4 @@ class FabricTemplateRedirection
 
 }
 
-add_action( 'muplugins_loaded', array( new FabricTemplateRedirection, 'init' ) );
+add_action( 'muplugins_loaded', array( new Fabric_Template_Redirection, 'init' ) );

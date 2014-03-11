@@ -11,7 +11,7 @@
 
 namespace Fabric\Controllers;
 
-class FabricController
+class Fabric_Controller
 {
 	public function __construct()
 	{
@@ -137,12 +137,12 @@ class FabricController
 		if ( ! empty( $term->slug ) ) {
 			$taxonomy	= $this->format_slug( $term->taxonomy );
 			$slug		= $this->format_slug( $term->slug );
-			$controllers[] = "Taxonomy$taxonomy$slug";
-			$controllers[] = "Taxonomy$taxonomy";
+			$controllers[] = "Taxonomy_{$taxonomy}_{$slug}";
+			$controllers[] = "Taxonomy_{$taxonomy}";
 		}
 		$controllers[] = 'Taxonomy';
 
-		return $this->get_query_controller( 'taxonomy', $controllers );
+		return $this->get_query_controller( 'Taxonomy', $controllers );
 	}
 
 	private function get_attachment_controller()
@@ -179,7 +179,7 @@ class FabricController
 
 		if ( ! empty( $object->post_type ) ) {
 			$post_type	= $this->format_slug( $object->post_type );
-			$controllers[] = "Single{$post_type}";
+			$controllers[] = "Single_{$post_type}";
 		}
 		$controllers[] = "Single";
 
@@ -206,10 +206,10 @@ class FabricController
 		}
 		if ( $pagename ) {
 			$pagename = $this->format_slug( $pagename );
-			$controllers[] = 'Page' . $pagename;
+			$controllers[] = "Page_{$pagename}";
 		}
 		if ( $id )
-			$controllers[] = 'Page' . $id;
+			$controllers[] = "Page_{$id}";
 		$controllers[] = 'Page';
 
 		return $this->get_query_controller( 'Page', $controllers );
@@ -224,8 +224,8 @@ class FabricController
 		if ( ! empty( $category->slug ) ) {
 			$slug		= $this->format_slug( $category->slug );
 			$term_id	= $category->term_id;
-			$controllers[] = 'Category' . $slug;
-			$controllers[] = 'Category' . $term_id;
+			$controllers[] = "Category_{$slug}";
+			$controllers[] = "Category_{$term_id}";
 		}
 		$controllers[] = 'Category';
 
@@ -241,8 +241,8 @@ class FabricController
 		if ( ! empty( $tag->slug ) ) {
 			$slug		= $this->format_slug( $tag->slug );
 			$term_id	= $tag->term_id;
-			$controllers[] = 'Tag' . $slug;
-			$controllers[] = 'Tag' . $term_id;
+			$controllers[] = "Tag_{$slug}";
+			$controllers[] = "Tag_{$term_id}";
 		}
 		$controllers[] = 'Tag';
 
@@ -258,8 +258,8 @@ class FabricController
 		if ( is_a( $author, 'WP_User' ) ) {
 			$user_nicename	= $this->format_slug( $author->user_nicename );
 			$ID				= $author->ID;
-			$controllers[] = 'Author' . $user_nicename;
-			$controllers[] = 'Author' . $ID;
+			$controllers[] = "Author_{$user_nicename}";
+			$controllers[] = "Author_{$ID}";
 		}
 		$controllers[] = 'Author';
 
@@ -280,7 +280,7 @@ class FabricController
 		if ( count( $post_types ) == 1 ) {
 			$post_type = reset( $post_types );
 			$post_type	= $this->format_slug( $post_type );
-			$controllers[] = 'Archive' . $post_type;
+			$controllers[] = "Archive_{$post_type}";
 		}
 		$controllers[] = 'Archive';
 
@@ -289,7 +289,7 @@ class FabricController
 
 	private function get_comments_popup_controller()
 	{
-		return $this->get_query_controller('CommentsPopup');
+		return $this->get_query_controller('Comments_Popup');
 	}
 
 	private function get_paged_controller()
@@ -316,9 +316,14 @@ class FabricController
 	{
 		$located = false;
 		foreach ( (array) $controller_names as $controller_name ) {
-			if ( !$controller_name )
+
+			if ( !$controller_name ) {
 				continue;
-			if ( file_exists( FABRIC_CONTROLLERS . $controller_name . '.php' ) ) {
+			}
+
+			$controller_file_name = 'class-' . strtolower( str_replace( '_', '-', $controller_name ) );
+
+			if ( file_exists( FABRIC_CONTROLLERS . $controller_file_name . '.php' ) ) {
 				$located = $controller_name;
 				break;
 			}
@@ -329,21 +334,22 @@ class FabricController
 
 	private function format_slug( $slug = false )
 	{
-		if( empty( $slug ) )
+		if( empty( $slug ) ) {
 			$slug = basename( get_permalink() );
+		}
 
 		$delimeter = array( '-', '_', ' ' );
 		$slug_parts = explode( $delimeter[0], str_replace($delimeter, $delimeter[0], $slug ) );
 		foreach( $slug_parts as $key => $part )
 		{
-			$slug_parts[$key] = ucfirst($part);
+			$slug_parts[ $key ] = ucfirst( $part );
 		}
 
-		$formatted_slug = implode('', $slug_parts);
+		$formatted_slug = implode( '_', $slug_parts );
 	 
 		if( empty( $formatted_slug ) ) {
 			if( is_home() || is_front_page() ) {
-				$formatted_slug = 'Home';
+				$formatted_slug = 'home';
 			}
 		}
 
@@ -357,12 +363,14 @@ class FabricController
 	    if($classNameParts[0] != 'Fabric')
 	        return;
 
-	    $fileName = array_pop($classNameParts);
+	    $file_name = array_pop($classNameParts);
 
-	    include_once FABRIC_CONTROLLERS . $fileName . '.php';
+	    $formatted_file_name = 'class-' . strtolower( str_replace( '_', '-', $file_name ) );
+
+	    include_once FABRIC_CONTROLLERS . $formatted_file_name . '.php';
 	}
 
 }
 
-add_action( 'fabric_loaded', array( new FabricController, 'init_controller' ) );
-add_action( 'wp', array( new FabricController, 'load_controller' ) );
+add_action( 'fabric_loaded', array( new Fabric_Controller, 'init_controller' ) );
+add_action( 'wp', array( new Fabric_Controller, 'load_controller' ) );

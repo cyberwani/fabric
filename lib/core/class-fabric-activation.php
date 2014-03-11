@@ -16,7 +16,7 @@ if ( !defined('FABRIC_PACKAGES_DIR') ){
     define('FABRIC_PACKAGES_DIR', dirname(__FILE__) . '/packages/');
 }
 
-class FabricActivation
+class Fabric_Activation
 {
 
 	public function __construct()
@@ -175,4 +175,4 @@ class FabricActivation
 
 }
 
-add_action( 'fabric_loaded', array( new FabricActivation, 'init' ) );
+add_action( 'fabric_loaded', array( new Fabric_Activation, 'init' ) );

@@ -9,7 +9,7 @@
  * @version 1.0
  */
 
-class FabricLoopIterator implements Iterator 
+class Fabric_Loop_Iterator implements Iterator 
 {
 
     private $position = 0;

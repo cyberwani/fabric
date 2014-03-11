@@ -10,7 +10,7 @@
  * Based on http://wpengineer.com/2513/filename-cache-busting-wordpress/ by DOMINIK
  */
 
-class FabricCacheBusting
+class Fabric_Cache_Busting
 {
 
 	public function init()
@@ -54,4 +54,4 @@ class FabricCacheBusting
 
 }
 
-add_action( 'fabric_loaded', array( new FabricCacheBusting, 'init' ) );
+add_action( 'fabric_loaded', array( new Fabric_Cache_Busting, 'init' ) );

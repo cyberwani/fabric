@@ -10,7 +10,7 @@
  * Based on https://raw.github.com/roots/roots/master/lib/cleanup.php by Roots Theme
  */
 
-class FabricCleanUp
+class Fabric_Clean_Up
 {
 
 	public function init()
@@ -244,4 +244,4 @@ class FabricCleanUp
 
 }
 
-add_action( 'fabric_loaded', array( new FabricCleanUp, 'init' ) );
+add_action( 'fabric_loaded', array( new Fabric_Clean_Up, 'init' ) );

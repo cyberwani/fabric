@@ -10,10 +10,10 @@
  */
 
 if ( !defined('FABRIC_CPT_DIR') ){
-    define('FABRIC_CPT_DIR', dirname(__FILE__) . '/post-types/');
+    define('FABRIC_CPT_DIR', FABRIC_THEME_DIR . 'lib/post-types/');
 }
 
-class FabricIncludePostTypes
+class Fabric_Include_Post_Types
 {
 
 	public function init()
@@ -44,4 +44,4 @@ class FabricIncludePostTypes
 
 }
 
-add_action( 'fabric_loaded', array( new FabricIncludePostTypes, 'init' ) );
+add_action( 'fabric_loaded', array( new Fabric_Include_Post_Types, 'init' ) );
