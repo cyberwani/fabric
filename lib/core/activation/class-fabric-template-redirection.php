@@ -8,8 +8,8 @@ Version: 1.0
 Author URI: http://UpTrending.com
 */
 
-if ( !defined('FABRIC_TEMPLATE_REDIRECTION_ACTIVE') ){
-	define('FABRIC_TEMPLATE_REDIRECTION_ACTIVE', true);
+if ( ! defined('FABRIC_TEMPLATE_REDIRECTION_ACTIVE') ) {
+	define( 'FABRIC_TEMPLATE_REDIRECTION_ACTIVE', true );
 }
 
 class Fabric_Template_Redirection
@@ -21,22 +21,24 @@ class Fabric_Template_Redirection
 		add_filter( 'validate_current_theme', array( $this, 'disable_theme_validation' ) );
 	}
 
-	public function redirect_template_directory($template_dir, $template, $theme_root)
+	public function redirect_template_directory( $template_dir, $template, $theme_root )
 	{
-	    $new_template_dir = $template_dir . '/views';
+		$new_template_dir = $template_dir . '/views';
 
-	    if( !is_dir( $new_template_dir ) || !file_exists( $new_template_dir . '/index.php' ) )
-	    	return $template_dir;
+		if ( ! is_dir( $new_template_dir ) || ! file_exists( $new_template_dir . '/index.php' ) ) {
+			return $template_dir;
+		}
 
-	    return $new_template_dir;
+		return $new_template_dir;
 	}
 
 	public function disable_theme_validation()
 	{
-	    $templates_dir = basename( get_template_directory() );
+		$templates_dir = basename( get_template_directory() );
 
-	    if( "views" != $templates_dir )
-	    	return true;
+		if ( "views" != $templates_dir ) {
+			return true;
+		}
 
 		return false;
 	}

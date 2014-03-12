@@ -9,8 +9,8 @@
  * @version 1.0
  */
 
-if ( !defined('FABRIC_TAX_DIR') ){
-    define('FABRIC_TAX_DIR', FABRIC_THEME_DIR . 'lib/taxonomies/');
+if ( ! defined('FABRIC_TAX_DIR') ){
+	define( 'FABRIC_TAX_DIR', FABRIC_THEME_DIR . 'lib/taxonomies/' );
 }
 
 class Fabric_Include_Taxonomies
@@ -24,7 +24,7 @@ class Fabric_Include_Taxonomies
 
 	private function check_create_dir()
 	{
-		if( !is_dir( FABRIC_TAX_DIR ) && is_writable( dirname(__FILE__) ) ) {
+		if ( ! is_dir( FABRIC_TAX_DIR ) && is_writable( dirname( __FILE__ ) ) ) {
 			mkdir( FABRIC_TAX_DIR, 0755 );
 		}
 	}
@@ -32,13 +32,13 @@ class Fabric_Include_Taxonomies
 	private function include_all_taxonomies()
 	{
 		if ( is_dir( FABRIC_TAX_DIR ) && $tax_handle = opendir( FABRIC_TAX_DIR ) ) {
-		    while (false !== ($tax = readdir($tax_handle))) {
-				$ext = pathinfo($tax, PATHINFO_EXTENSION);
-				if($ext == 'php') {
+			while ( false !== ( $tax = readdir( $tax_handle ) ) ) {
+				$ext = pathinfo( $tax, PATHINFO_EXTENSION );
+				if ( 'php' == $ext ) {
 					include ( FABRIC_TAX_DIR . $tax );
 				}
-		    }
-		    closedir($tax_handle);
+			}
+			closedir( $tax_handle );
 		}
 	}
 

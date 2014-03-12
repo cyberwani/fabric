@@ -15,33 +15,35 @@ class Fabric_Cache_Busting
 
 	public function init()
 	{
-		add_action('generate_rewrite_rules', array( $this, 'rewrite_asset_query_var' ) );
+		add_action( 'generate_rewrite_rules', array( $this, 'rewrite_asset_query_var' ) );
 		add_filter( 'script_loader_src', array( $this, 'move_asset_version' ) );
 		add_filter( 'style_loader_src', array( $this, 'move_asset_version' ) );
 	}
 
-	public function rewrite_asset_query_var($content) {
-		
+	public function rewrite_asset_query_var( $content )
+	{
 		global $wp_rewrite;
 		
 		$fabric_new_non_wp_rules = array(
 			'(.+)\.(fabric_[a-zA-Z0-9_].+)\.(js|css)$' => '$1.$3 [L]'
 		);
 
-		$wp_rewrite->non_wp_rules = array_merge($wp_rewrite->non_wp_rules, $fabric_new_non_wp_rules);
+		$wp_rewrite->non_wp_rules = array_merge( $wp_rewrite->non_wp_rules, $fabric_new_non_wp_rules );
 		
 		return $content;
 	}
 
-	public function move_asset_version( $src ) {
-
+	public function move_asset_version( $src )
+	{
 		// Return if pretty permalinks not enabled
-		if ( !get_option('permalink_structure') )
+		if ( ! get_option('permalink_structure') ) {
 			return $src;
+		}
 
 		// Don't touch admin scripts
-		if ( is_admin() )
+		if ( is_admin() ) {
 			return $src;
+		}
 		
 		$return = preg_replace(
 			'/\.(js|css)\?ver=(.+)$/',

@@ -54,7 +54,7 @@ class Fabric_Controller
 
 	private function get_template( $type, $name, &$view, $template_part = false )
 	{
-		if( $template_part ) {
+		if ( $template_part ) {
 			do_action( "get_template_part_{$type}", $type, $name );
 		} else {
 			do_action( "get_{$type}", $name );
@@ -67,7 +67,7 @@ class Fabric_Controller
 
 		$templates[] = "{$type}.php";
 
-		include locate_template($templates, false);
+		include locate_template( $templates, false );
 	}
 
 	private function controller_hierarchy()
@@ -93,7 +93,7 @@ class Fabric_Controller
 			$controller = $this->get_base_controller();
 		endif;
 
-		if ( !defined('FABRIC_CONTROLLER') ){
+		if ( ! defined('FABRIC_CONTROLLER') ) {
 			define( 'FABRIC_CONTROLLER', $controller );
 		}
 
@@ -117,9 +117,10 @@ class Fabric_Controller
 
 	private function get_post_type_archive_controller()
 	{
-		$post_type = get_query_var( 'post_type' );
-		if ( is_array( $post_type ) )
+		$post_type = get_query_var('post_type');
+		if ( is_array( $post_type ) ) {
 			$post_type = reset( $post_type );
+		}
 
 		$obj = get_post_type_object( $post_type );
 		if ( ! $obj->has_archive )
@@ -157,18 +158,19 @@ class Fabric_Controller
 				$type[0] = $this->format_slug( $type[0] );
 				$type[1] = $this->format_slug( $type[1] );
 
-				if ( $template = $this->get_query_controller( $type[0] ) )
+				if ( $template = $this->get_query_controller( $type[0] ) ) {
 					return $template;
-				elseif ( ! empty( $type[1] ) ) {
-					if ( $template = $this->get_query_controller( $type[1] ) )
+				} elseif ( ! empty( $type[1] ) ) {
+					if ( $template = $this->get_query_controller( $type[1] ) ) {
 						return $template;
-					elseif ( $template = $this->get_query_controller( "$type[0]_$type[1]" ) )
+					} elseif ( $template = $this->get_query_controller( "$type[0]_$type[1]" ) ) {
 						return $template;
+					}
 				}
 			}
 		}
 
-		return $this->get_query_controller( 'Attachment' );
+		return $this->get_query_controller('Attachment');
 	}
 
 	private function get_single_controller()
@@ -195,21 +197,23 @@ class Fabric_Controller
 		if ( ! $pagename && $id ) {
 			// If a static page is set as the front page, $pagename will not be set. Retrieve it from the queried object
 			$post = get_queried_object();
-			if ( $post )
+			if ( $post ) {
 				$pagename = $post->post_name;
+			}
 		}
 
 		$controllers = array();
 		if ( $template && 0 === validate_file( $template ) ) {
-			$template	= $this->format_slug( basename( $template, '.php' ) );
+			$template = $this->format_slug( basename( $template, '.php' ) );
 			$controllers[] = $template;
 		}
 		if ( $pagename ) {
 			$pagename = $this->format_slug( $pagename );
 			$controllers[] = "Page_{$pagename}";
 		}
-		if ( $id )
+		if ( $id ) {
 			$controllers[] = "Page_{$id}";
+		}
 		$controllers[] = 'Page';
 
 		return $this->get_query_controller( 'Page', $controllers );
@@ -273,7 +277,7 @@ class Fabric_Controller
 
 	private function get_archive_controller()
 	{
-		$post_types = array_filter( (array) get_query_var( 'post_type' ) );
+		$post_types = array_filter( (array) get_query_var('post_type') );
 
 		$controllers = array();
 
@@ -304,9 +308,9 @@ class Fabric_Controller
 
 	private function get_query_controller( $type, $controllers = array() )
 	{
-		if ( empty( $controllers ) )
+		if ( empty( $controllers ) ) {
 			$controllers = array( $type );
-
+		}
 		$controller = $this->locate_controller( $controllers );
 
 		return apply_filters( "{$type}_controller", $controller );
@@ -334,12 +338,12 @@ class Fabric_Controller
 
 	private function format_slug( $slug = false )
 	{
-		if( empty( $slug ) ) {
+		if ( empty( $slug ) ) {
 			$slug = basename( get_permalink() );
 		}
 
 		$delimeter = array( '-', '_', ' ' );
-		$slug_parts = explode( $delimeter[0], str_replace($delimeter, $delimeter[0], $slug ) );
+		$slug_parts = explode( $delimeter[0], str_replace( $delimeter, $delimeter[0], $slug ) );
 		foreach( $slug_parts as $key => $part )
 		{
 			$slug_parts[ $key ] = ucfirst( $part );
@@ -347,8 +351,8 @@ class Fabric_Controller
 
 		$formatted_slug = implode( '_', $slug_parts );
 	 
-		if( empty( $formatted_slug ) ) {
-			if( is_home() || is_front_page() ) {
+		if ( empty( $formatted_slug ) ) {
+			if ( is_home() || is_front_page() ) {
 				$formatted_slug = 'home';
 			}
 		}
@@ -356,18 +360,19 @@ class Fabric_Controller
 		return $formatted_slug;
 	}
 
-	private function fabric_autoloader($className)
+	private function fabric_autoloader( $className )
 	{
-	    $classNameParts = explode('\\', trim($className, '\\'));
+		$classNameParts = explode( '\\', trim( $className, '\\' ) );
 
-	    if($classNameParts[0] != 'Fabric')
-	        return;
+		if ( $classNameParts[0] != 'Fabric' ) {
+			return;
+		}
 
-	    $file_name = array_pop($classNameParts);
+		$file_name = array_pop( $classNameParts );
 
-	    $formatted_file_name = 'class-' . strtolower( str_replace( '_', '-', $file_name ) );
+		$formatted_file_name = 'class-' . strtolower( str_replace( '_', '-', $file_name ) );
 
-	    include_once FABRIC_CONTROLLERS . $formatted_file_name . '.php';
+		include_once FABRIC_CONTROLLERS . $formatted_file_name . '.php';
 	}
 
 }

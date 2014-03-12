@@ -12,84 +12,84 @@
  */
 
 /*
-    Copyright 2012  Thomas Griffin  (email : thomas@thomasgriffinmedia.com)
+	Copyright 2012  Thomas Griffin  (email : thomas@thomasgriffinmedia.com)
 
-    This program is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License, version 3, as
-    published by the Free Software Foundation.
+	This program is free software; you can redistribute it and/or modify
+	it under the terms of the GNU General Public License, version 3, as
+	published by the Free Software Foundation.
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+	This program is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
 
-    You should have received a copy of the GNU General Public License
-    along with this program; if not, write to the Free Software
-    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+	You should have received a copy of the GNU General Public License
+	along with this program; if not, write to the Free Software
+	Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
 if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
 	/**
- 	 * Automatic plugin installation and activation library.
- 	 *
- 	 * Creates a way to automatically install and activate plugins from within themes.
- 	 * The plugins can be either pre-packaged, downloaded from the WordPress
- 	 * Plugin Repository or downloaded from a private repository.
- 	 *
- 	 * @since 1.0.0
- 	 *
- 	 * @package TGM-Plugin-Activation
- 	 * @author Thomas Griffin <thomas@thomasgriffinmedia.com>
- 	 * @author Gary Jones <gamajo@gamajo.com>
- 	 */
+	 * Automatic plugin installation and activation library.
+	 *
+	 * Creates a way to automatically install and activate plugins from within themes.
+	 * The plugins can be either pre-packaged, downloaded from the WordPress
+	 * Plugin Repository or downloaded from a private repository.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @package TGM-Plugin-Activation
+	 * @author Thomas Griffin <thomas@thomasgriffinmedia.com>
+	 * @author Gary Jones <gamajo@gamajo.com>
+	 */
 	class TGM_Plugin_Activation {
 
 		/**
-	 	 * Holds a copy of itself, so it can be referenced by the class name.
-	 	 *
-	 	 * @since 1.0.0
-	 	 *
-	 	 * @var TGM_Plugin_Activation
-	 	 */
+		 * Holds a copy of itself, so it can be referenced by the class name.
+		 *
+		 * @since 1.0.0
+		 *
+		 * @var TGM_Plugin_Activation
+		 */
 		static $instance;
 
 		/**
-	 	 * Holds arrays of plugin details.
-	 	 *
-	 	 * @since 1.0.0
-	 	 *
-	 	 * @var array
-	 	 */
+		 * Holds arrays of plugin details.
+		 *
+		 * @since 1.0.0
+		 *
+		 * @var array
+		 */
 		public $plugins = array();
 
 		/**
-	 	 * Parent menu slug for plugins page.
-	 	 *
-	 	 * @since 2.2.0
-	 	 *
-	 	 * @var string Parent menu slug. Defaults to 'themes.php'.
-	 	 */
+		 * Parent menu slug for plugins page.
+		 *
+		 * @since 2.2.0
+		 *
+		 * @var string Parent menu slug. Defaults to 'themes.php'.
+		 */
 		public $parent_menu_slug = 'themes.php';
 
 		/**
-	 	 * Parent URL slug for URL references.
-	 	 *
-	 	 * This is useful if you want to place the custom plugins page as a
-	 	 * submenu item under a custom parent menu.
-	 	 *
-	 	 * @since 2.2.0
-	 	 *
-	 	 * @var string Parent URL slug. Defaults to 'themes.php'.
-	 	 */
+		 * Parent URL slug for URL references.
+		 *
+		 * This is useful if you want to place the custom plugins page as a
+		 * submenu item under a custom parent menu.
+		 *
+		 * @since 2.2.0
+		 *
+		 * @var string Parent URL slug. Defaults to 'themes.php'.
+		 */
 		public $parent_url_slug = 'themes.php';
 
 		/**
-	 	 * Name of the querystring argument for the admin page.
-	 	 *
-	 	 * @since 1.0.0
-	 	 *
-	 	 * @var string
-	 	 */
+		 * Name of the querystring argument for the admin page.
+		 *
+		 * @since 1.0.0
+		 *
+		 * @var string
+		 */
 		public $menu = 'install-required-plugins';
 
 		/**
@@ -375,9 +375,9 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
 				<?php if ( isset( $this->message ) ) _e( wp_kses_post( $this->message ), $this->domain ); ?>
 
 				<form id="tgmpa-plugins" action="" method="post">
-            		<input type="hidden" name="tgmpa-page" value="<?php echo $this->menu; ?>" />
-            		<?php $plugin_table->display(); ?>
-        		</form>
+					<input type="hidden" name="tgmpa-page" value="<?php echo $this->menu; ?>" />
+					<?php $plugin_table->display(); ?>
+				</form>
 
 			</div>
 			<?php
@@ -710,7 +710,7 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
 						$rendered .= '<p>' . implode( ' | ', $action_links ) . '</p>';
 
 					/** Register the nag messages and prepare them to be processed */
-               		if ( isset( $this->strings['nag_type'] ) )
+					if ( isset( $this->strings['nag_type'] ) )
 						add_settings_error( 'tgmpa', 'tgmpa', $rendered, sanitize_html_class( strtolower( $this->strings['nag_type'] ), 'updated' ) );
 					else
 						add_settings_error( 'tgmpa', 'tgmpa', $rendered, 'updated' );
@@ -1543,7 +1543,7 @@ if ( ! class_exists( 'TGMPA_List_Table' ) ) {
 				else
 					printf( '<div id="message" class="updated"><p>%1$s %2$s</p></div>', _n( 'The following plugin was activated successfully:', 'The following plugins were activated successfully:', $count, TGM_Plugin_Activation::$instance->domain ), $imploded );
 
- 				/** Update recently activated plugins option */
+				/** Update recently activated plugins option */
 				$recent = (array) get_option( 'recently_activated' );
 
 				foreach ( $plugins as $plugin => $time )
@@ -1588,7 +1588,7 @@ function fabric_is_customizer() {
 
 	global $wp_customize;
 
-	if( isset( $wp_customize ) )
+	if ( isset( $wp_customize ) )
 		return true;
 
 	return false;
@@ -1626,31 +1626,31 @@ if (
 		class TGM_Bulk_Installer extends WP_Upgrader {
 
 			/**
-	 		 * Holds result of bulk plugin installation.
-	 		 *
-	 		 * @since 2.2.0
-	 		 *
-	 		 * @var string
-	 		 */
+			 * Holds result of bulk plugin installation.
+			 *
+			 * @since 2.2.0
+			 *
+			 * @var string
+			 */
 			public $result;
 
 			/**
-	 		 * Flag to check if bulk installation is occurring or not.
-	 		 *
-	 		 * @since 2.2.0
-	 		 *
-	 		 * @var boolean
-	 		 */
+			 * Flag to check if bulk installation is occurring or not.
+			 *
+			 * @since 2.2.0
+			 *
+			 * @var boolean
+			 */
 			public $bulk = false;
 
 			/**
-	 		 * Processes the bulk installation of plugins.
-	 		 *
-	 		 * @since 2.2.0
-	 		 *
-	 		 * @param array $packages The plugin sources needed for installation
-	 		 * @return string|boolean Install confirmation messages on success, false on failure
-	 		 */
+			 * Processes the bulk installation of plugins.
+			 *
+			 * @since 2.2.0
+			 *
+			 * @param array $packages The plugin sources needed for installation
+			 * @return string|boolean Install confirmation messages on success, false on failure
+			 */
 			public function bulk_install( $packages, $direct = false ) {
 
 				/** Pass installer skin object and set bulk property to true */
@@ -1658,7 +1658,7 @@ if (
 				$this->bulk = true;
 
 				/** If accessing this directly from theme customizer, auto activate */
-				if( $direct ) {
+				if ( $direct ) {
 					TGM_Plugin_Activation::$instance->is_automatic = true;
 				}
 
@@ -1678,7 +1678,7 @@ if (
 				}
 
 				/** Set the bulk header and prepare results array */
-				if( !$direct )
+				if ( !$direct )
 					$this->skin->bulk_header();
 				$results = array();
 
@@ -1711,7 +1711,7 @@ if (
 				}
 
 				/** Pass footer skin strings */
-				if( !$direct )
+				if ( !$direct )
 					$this->skin->bulk_footer();
 				$this->skin->footer();
 
@@ -1721,16 +1721,16 @@ if (
 			}
 
 			/**
-	 		 * Performs the actual installation of each plugin.
-	 		 *
-	 		 * This method also activates the plugin in the automatic flag has been
-	 		 * set to true for the TGMPA class.
-	 		 *
-	 		 * @since 2.2.0
-	 		 *
-	 		 * @param array $options The installation cofig options
-	 		 * @return null/array Return early if error, array of installation data on success
-	 		 */
+			 * Performs the actual installation of each plugin.
+			 *
+			 * This method also activates the plugin in the automatic flag has been
+			 * set to true for the TGMPA class.
+			 *
+			 * @since 2.2.0
+			 *
+			 * @param array $options The installation cofig options
+			 * @return null/array Return early if error, array of installation data on success
+			 */
 			public function run( $options ) {
 
 				/** Default config options */
@@ -1844,10 +1844,10 @@ if (
 			}
 
 			/**
-	 		 * Sets the correct install strings for the installer skin to use.
-	 		 *
-	 		 * @since 2.2.0
-	 		 */
+			 * Sets the correct install strings for the installer skin to use.
+			 *
+			 * @since 2.2.0
+			 */
 			public function install_strings() {
 
 				$this->strings['no_package']          = __( 'Install package not available.', TGM_Plugin_Activation::$instance->domain );
@@ -1860,10 +1860,10 @@ if (
 			}
 
 			/**
-	 		 * Sets the correct activation strings for the installer skin to use.
-	 		 *
-	 		 * @since 2.2.0
-	 		 */
+			 * Sets the correct activation strings for the installer skin to use.
+			 *
+			 * @since 2.2.0
+			 */
 			public function activate_strings() {
 
 				$this->strings['activation_failed']  = __( 'Plugin activation failed.', TGM_Plugin_Activation::$instance->domain );
@@ -1872,12 +1872,12 @@ if (
 			}
 
 			/**
-	 		 * Grabs the plugin file from an installed plugin.
-	 		 *
-	 		 * @since 2.2.0
-	 		 *
-	 		 * @return string|boolean Return plugin file on success, false on failure
-	 		 */
+			 * Grabs the plugin file from an installed plugin.
+			 *
+			 * @since 2.2.0
+			 *
+			 * @return string|boolean Return plugin file on success, false on failure
+			 */
 			public function plugin_info() {
 
 				/** Return false if installation result isn't an array or the destination name isn't set */
@@ -1917,39 +1917,39 @@ if (
 		class TGM_Bulk_Installer_Skin extends Bulk_Upgrader_Skin {
 
 			/**
-	 		 * Holds plugin info for each individual plugin installation.
-	 		 *
-	 		 * @since 2.2.0
-	 		 *
-	 		 * @var array
-	 		 */
+			 * Holds plugin info for each individual plugin installation.
+			 *
+			 * @since 2.2.0
+			 *
+			 * @var array
+			 */
 			public $plugin_info = array();
 
 			/**
-	 		 * Holds names of plugins that are undergoing bulk installations.
-	 		 *
-	 		 * @since 2.2.0
-	 		 *
-	 		 * @var array
-	 		 */
+			 * Holds names of plugins that are undergoing bulk installations.
+			 *
+			 * @since 2.2.0
+			 *
+			 * @var array
+			 */
 			public $plugin_names = array();
 
 			/**
-	 		 * Integer to use for iteration through each plugin installation.
-	 		 *
-	 		 * @since 2.2.0
-	 		 *
-	 		 * @var integer
-	 		 */
+			 * Integer to use for iteration through each plugin installation.
+			 *
+			 * @since 2.2.0
+			 *
+			 * @var integer
+			 */
 			public $i = 0;
 
 			/**
-	 		 * Constructor. Parses default args with new ones and extracts them for use.
-	 		 *
-	 		 * @since 2.2.0
-	 		 *
-	 		 * @param array $args Arguments to pass for use within the class
-	 		 */
+			 * Constructor. Parses default args with new ones and extracts them for use.
+			 *
+			 * @since 2.2.0
+			 *
+			 * @param array $args Arguments to pass for use within the class
+			 */
 			public function __construct( $args = array() ) {
 
 				/** Parse default and new args */
@@ -1965,13 +1965,13 @@ if (
 			}
 
 			/**
-	 		 * Sets install skin strings for each individual plugin.
-	 		 *
-	 		 * Checks to see if the automatic activation flag is set and uses the
-	 		 * the proper strings accordingly.
-	 		 *
-	 		 * @since 2.2.0
-	 		 */
+			 * Sets install skin strings for each individual plugin.
+			 *
+			 * Checks to see if the automatic activation flag is set and uses the
+			 * the proper strings accordingly.
+			 *
+			 * @since 2.2.0
+			 */
 			public function add_strings() {
 
 				/** Automatic activation strings */
@@ -1994,10 +1994,10 @@ if (
 			}
 
 			/**
-	 		 * Outputs the header strings and necessary JS before each plugin installation.
-	 		 *
-	 		 * @since 2.2.0
-	 		 */
+			 * Outputs the header strings and necessary JS before each plugin installation.
+			 *
+			 * @since 2.2.0
+			 */
 			public function before($title = '') {
 
 				/** We are currently in the plugin installation loop, so set to true */
@@ -2013,13 +2013,13 @@ if (
 			}
 
 			/**
-	 		 * Outputs the footer strings and necessary JS after each plugin installation.
-	 		 *
-	 		 * Checks for any errors and outputs them if they exist, else output
-	 		 * success strings.
-	 		 *
-	 		 * @since 2.2.0
-	 		 */
+			 * Outputs the footer strings and necessary JS after each plugin installation.
+			 *
+			 * Checks for any errors and outputs them if they exist, else output
+			 * success strings.
+			 *
+			 * @since 2.2.0
+			 */
 			public function after($title = '') {
 
 				/** Close install strings */
@@ -2048,10 +2048,10 @@ if (
 			}
 
 			/**
-	 		 * Outputs links after bulk plugin installation is complete.
-	 		 *
-	 		 * @since 2.2.0
-	 		 */
+			 * Outputs links after bulk plugin installation is complete.
+			 *
+			 * @since 2.2.0
+			 */
 			public function bulk_footer() {
 
 				/** Serve up the string to say installations (and possibly activations) are complete */
@@ -2086,10 +2086,10 @@ if (
 			}
 
 			/**
-	 		 * Flush header output buffer.
-	 		 *
-	 		 * @since 2.2.0
-	 		 */
+			 * Flush header output buffer.
+			 *
+			 * @since 2.2.0
+			 */
 			public function before_flush_output() {
 
 				wp_ob_end_flush_all();
@@ -2098,11 +2098,11 @@ if (
 			}
 
 			/**
-	 		 * Flush footer output buffer and iterate $this->i to make sure the
-	 		 * installation strings reference the correct plugin.
-	 		 *
-	 		 * @since 2.2.0
-	 		 */
+			 * Flush footer output buffer and iterate $this->i to make sure the
+			 * installation strings reference the correct plugin.
+			 *
+			 * @since 2.2.0
+			 */
 			public function after_flush_output() {
 
 				wp_ob_end_flush_all();
