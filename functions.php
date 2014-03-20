@@ -14,7 +14,7 @@ if ( ! defined('FABRIC_VIEWS') ) {
 include 'lib/core/class-fabric-activation.php';
 
 // Verify template redirection is active, attempt to install if not
-if ( ! defined('FABRIC_TEMPLATE_REDIRECTION_ACTIVE') && !is_admin() ) {
+if ( ! defined('FABRIC_TEMPLATE_REDIRECTION_ACTIVE') && ! is_admin() ) {
 	fabric_activation( true );
 }
 
